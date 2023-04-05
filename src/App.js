@@ -8,6 +8,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> crypto-buying-platform
+          something const name = new type(arguments);
         </p>
         <a
           className="App-link"
