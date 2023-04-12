@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation/Navigation"
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import { AuthProvider } from "./contexts/authContext";
+import TickerPrice from "./components/TickerPrice/TickerPrice";
 
 
 function App() {
@@ -16,7 +17,12 @@ function App() {
 
         <Routes>
 
-          <Route path="/coins" element={<div />}></Route>
+          <Route path="/coins" element={<TickerPrice symbol="BTCUSDT" />}>
+            
+
+
+          </Route>
+
           <Route path={'catalog'} element={<div />}></Route>
           <Route path={'details/:id'} element={<div />}></Route>
           <Route path="/profile" element={<div />} />

@@ -7,7 +7,7 @@ const Navigation = () => {
   return (
     <nav className="navbar">
       <div className="container">
-        <Link to="/" className="navbar-brand">
+        <Link to="/coins" className="navbar-brand">
           Coins
         </Link>
         <div className="navbar-buttons">
