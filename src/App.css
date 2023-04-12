@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+.ticker-price-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 80vh;
+}

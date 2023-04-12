@@ -29,7 +29,7 @@ const TickerPrice = ({ symbol }) => {
   }, [symbol, price]);
 
   return (
-    <div>
+    <div className='ticker-price'>
       {price ? (
         <p className="price">
           {symbol}: $<span className={priceChange}>{price}</span>

@@ -6,7 +6,8 @@ import { AuthProvider } from "./contexts/authContext";
 import React, { useState, useEffect } from 'react';
 import TickerPrice from './components/TickerPrice/TickerPrice';
 import { fetchMultipleSymbols } from './utils/fetchBinanceData';
-
+import Footer from "./components/Footer/Footer";
+import "./App.css"
 
 function App() {
   const [symbols, setSymbols] = useState([]);
@@ -24,12 +25,12 @@ function App() {
     <>
       <AuthProvider>
 
-        <Navigation>
-        </Navigation>
+        <Navigation/>
+        
 
         <Routes>
 
-          <Route path="/coins" element={<div>
+          <Route path="/coins" element={<div className="ticker-price-wrapper">
             {symbols.map((symbolData) => (
               <TickerPrice key={symbolData.symbol} symbol={symbolData.symbol} />
             ))}
@@ -47,6 +48,7 @@ function App() {
           <Route path={'/register'} element={<Register />}></Route>
 
         </Routes>
+        <Footer/>
       </AuthProvider>
 
 
