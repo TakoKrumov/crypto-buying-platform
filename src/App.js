@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     const getSymbols = async () => {
-      const coinSymbols = await fetchMultipleSymbols(10); // Get the first 5 coins
+      const coinSymbols = await fetchMultipleSymbols(24); // Get the first 5 coins
       setSymbols(coinSymbols);
     };
 

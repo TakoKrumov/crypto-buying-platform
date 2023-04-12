@@ -1,4 +1,3 @@
-// utils/fetchBinanceData.js
 import axios from 'axios';
 
 const fetchBinanceData = async (symbol) => {
