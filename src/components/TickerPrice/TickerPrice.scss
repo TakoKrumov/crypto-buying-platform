@@ -1,0 +1,25 @@
+// components/TickerPrice.scss
+.price span {
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.up {
+  color: green;
+  animation-name: blink;
+}
+
+.down {
+  color: red;
+  animation-name: blink;
+}
