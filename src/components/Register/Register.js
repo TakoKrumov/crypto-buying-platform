@@ -1,27 +1,33 @@
 // components/Register.js
 import React, { useState } from 'react';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
+import { AuthContext } from '../../contexts/authContext';
 import './Register.scss';
 
-const Register = ({ onRegister }) => {
+const Register = () => {
+  const { onRegisterSubmit, error, setError } = useContext(AuthContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     if (!email || !password || !confirmPassword) {
       setError('Please fill in all the fields.');
     } else if (password !== confirmPassword) {
       setError('Passwords do not match.');
     } else {
-      onRegister(email, password);
+      onRegisterSubmit({ email, password, confirmPassword });
     }
   };
 
   return (
     <div className="register-container">
-      <form className="register-form" onSubmit={handleSubmit}>
+      <form className="register-form" method='POST' onSubmit={handleSubmit}>
         <h1>Register</h1>
         {error && <p className="error-message">{error}</p>}
         <input
