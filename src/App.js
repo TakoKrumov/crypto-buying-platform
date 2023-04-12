@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route ,Navigate} from "react-router-dom";
+import React from "react";
+import Navigation from "./components/Navigation/Navigation"
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> crypto-buying-platform
-          something const name = new type(arguments);
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navigation>
+      </Navigation>
+        <Routes>
+          <Route path="/coins" element={<div />}></Route>
+          <Route path={'catalog'} element={<div />}></Route>
+          <Route path={'details/:id'} element={<div />}></Route>
+          <Route path="/profile" element={<div />} />
+          <Route path="/login" element={<Login/>}/>
+          <Route path={'/register'} element={<Register/> }></Route>
+        </Routes>
+    </>
   );
 }
 
