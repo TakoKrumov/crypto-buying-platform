@@ -22,39 +22,35 @@ function App() {
   }, []);
 
   return (
-    <>
+    
       <AuthProvider>
-
-        <Navigation/>
-        
-
+        <Navigation />
         <Routes>
-
-          <Route path="/coins" element={<div className="ticker-price-wrapper">
+          <Route
+            path="/coins"
+            element={<div className="ticker-price-wrapper">
             {symbols.map((symbolData) => (
               <TickerPrice key={symbolData.symbol} symbol={symbolData.symbol} />
             ))}
           </div>}>
-
-
-
+            <Route path={"catalog"} element={<div>catalog brat</div>}></Route>
+            <Route path={"details"} element={<div>Details</div>}></Route>
           </Route>
-
-          <Route path={'catalog'} element={<div />}></Route>
-          <Route path={'details/:id'} element={<div />}></Route>
-          <Route path="/profile" element={<div />} />
-
-          <Route path="/login" element={<Login />} />
-          <Route path={'/register'} element={<Register />}></Route>
-
+          <Route path={"/login"} element={<Login />}></Route>
+          <Route path={"/register"} element={<Register />}></Route>
+          <Route path="/userInfo" element={<div>User info</div>}>
+            <Route path={"profileInfo"} element={<div>profile Info</div>}></Route>
+            <Route path={"wallet"} element={<div>Wallet</div>}></Route>
+            <Route path={"planing"} element={<div>Planing</div>}></Route>
+            <Route path={"history"} element={<div>History</div>}></Route>
+          </Route>
+          <Route path={"*"} element={<div>NOT FOUND BRAT</div>}></Route>
         </Routes>
-        <Footer/>
+        <Footer />
       </AuthProvider>
-
-
-    </>
+   
   );
-};
+}
 
 
 

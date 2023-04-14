@@ -22,11 +22,11 @@
     display: inline-block;
   }
 
-  &.blink-green {
+  .up {
     animation: blink-green 1s linear;
   }
 
-  &.blink-red {
+  .down {
     animation: blink-red 1s linear;
   }
 

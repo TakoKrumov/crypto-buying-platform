@@ -22,7 +22,7 @@ export const AuthProvider = ({
 
       setAuth(result);
 
-      navigate('/');
+      navigate('/coins');
     } catch (error) {
       const result = await Object.values(error)[1];
 
