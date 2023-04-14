@@ -7,7 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState, useEffect } from "react";
-import './Navigation.scss'
+import "./Navigation.scss";
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -24,15 +24,24 @@ function useWindowSize() {
 }
 
 const Navigation = () => {
- 
   const windowSize = useWindowSize();
 
   const getExpandValue = () => {
-    if (windowSize <= 696) return false;
-    if (windowSize <= 768) return "sm";
-    if (windowSize <= 992) return "md";
-    if (windowSize <= 1200) return "lg";
-    if (windowSize <= 1400) return "xl";
+    if (windowSize <= 696) {
+      return false;
+    }
+    if (windowSize <= 768) {
+      return "sm";
+    }
+    if (windowSize <= 992) {
+      return "md";
+    }
+    if (windowSize <= 1200) {
+      return "lg";
+    }
+    if (windowSize <= 1400) {
+      return "xl";
+    }
     return "xxl";
   };
 
@@ -60,10 +69,10 @@ const Navigation = () => {
                 <Nav.Item>
                   <Link to="/coins">Coins</Link>
                 </Nav.Item>
-                <Nav.Item>
+                <Nav.Item className="">
                   <Link to="/login">Login</Link>
                 </Nav.Item>
-                <Nav.Item>
+                <Nav.Item className="">
                   <Link to="/register">Register</Link>
                 </Nav.Item>
                 <NavDropdown
@@ -96,4 +105,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-

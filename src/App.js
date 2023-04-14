@@ -8,6 +8,10 @@ import TickerPrice from './components/TickerPrice/TickerPrice';
 import { fetchMultipleSymbols } from './utils/fetchBinanceData';
 import Footer from "./components/Footer/Footer";
 import "./App.css"
+import UserInfo from "./components/UserInfo/UserInfo";
+import Wallet from "./components/UserInfo/Wallet/Wallet";
+import History from "./components/UserInfo/History/History";
+import Planing from "./components/UserInfo/Planing/Planing";
 
 function App() {
   const [symbols, setSymbols] = useState([]);
@@ -26,6 +30,7 @@ function App() {
       <AuthProvider>
         <Navigation />
         <Routes>
+          <Route index element={<Navigate to={'/coins'} />}></Route>
           <Route
             path="/coins"
             element={<div className="ticker-price-wrapper">
@@ -38,12 +43,14 @@ function App() {
           </Route>
           <Route path={"/login"} element={<Login />}></Route>
           <Route path={"/register"} element={<Register />}></Route>
-          <Route path="/userInfo" element={<div>User info</div>}>
+          
+          <Route path="/userInfo" element={<UserInfo/>}>
             <Route path={"profileInfo"} element={<div>profile Info</div>}></Route>
-            <Route path={"wallet"} element={<div>Wallet</div>}></Route>
-            <Route path={"planing"} element={<div>Planing</div>}></Route>
-            <Route path={"history"} element={<div>History</div>}></Route>
+            <Route path={"wallet"} element={<Wallet/>}></Route>
+            <Route path={"planing"} element={<Planing/>}></Route>
+            <Route path={"history"} element={<History/>}></Route>
           </Route>
+        
           <Route path={"*"} element={<div>NOT FOUND BRAT</div>}></Route>
         </Routes>
         <Footer />
