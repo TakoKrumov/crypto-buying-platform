@@ -45,8 +45,6 @@ export const AuthProvider = ({
     try {
       const result = await authService.register(registerData);
 
-      console.log(result)
-
       navigate('/');
     } catch (error) {
       const result = await Object.values(error)[1];
