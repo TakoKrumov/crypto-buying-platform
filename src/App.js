@@ -8,17 +8,17 @@ import TickerPrice from './components/TickerPrice/TickerPrice';
 import { fetchMultipleSymbols } from './utils/fetchBinanceData';
 import Footer from "./components/Footer/Footer";
 import "./App.css"
+import Histogram from "./components/TickerPrice/Histogram/Histogram";
 import UserInfo from "./components/UserInfo/UserInfo";
 import Wallet from "./components/UserInfo/Wallet/Wallet";
 import History from "./components/UserInfo/History/History";
 import Planing from "./components/UserInfo/Planing/Planing";
-
 function App() {
   const [symbols, setSymbols] = useState([]);
 
   useEffect(() => {
     const getSymbols = async () => {
-      const coinSymbols = await fetchMultipleSymbols(24); // Get the first 5 coins
+      const coinSymbols = await fetchMultipleSymbols(5); // Get the first 5 coins
       setSymbols(coinSymbols);
     };
 
@@ -37,6 +37,7 @@ function App() {
             {symbols.map((symbolData) => (
               <TickerPrice key={symbolData.symbol} symbol={symbolData.symbol} />
             ))}
+            <Histogram/>
           </div>}>
             <Route path={"catalog"} element={<div>catalog brat</div>}></Route>
             <Route path={"details"} element={<div>Details</div>}></Route>
