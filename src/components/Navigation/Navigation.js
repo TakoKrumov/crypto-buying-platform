@@ -9,6 +9,33 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState, useEffect } from "react";
 import "./Navigation.scss";
 
+function AuthNav() {
+  const isAuth = !!localStorage.getItem("Auth")
+    ? localStorage.getItem("Auth")
+    : false;
+
+  if (isAuth) {
+    return (
+      <>
+        <Nav.Item className="">
+          <Link to="/login">Login</Link>
+        </Nav.Item>
+        <Nav.Item className="">
+          <Link to="/register">Register</Link>
+        </Nav.Item>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Nav.Item className="">
+        <Link to="/logout">Logout</Link>
+      </Nav.Item>
+    </>
+  );
+}
+
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -69,12 +96,7 @@ const Navigation = () => {
                 <Nav.Item>
                   <Link to="/coins">Coins</Link>
                 </Nav.Item>
-                <Nav.Item className="">
-                  <Link to="/login">Login</Link>
-                </Nav.Item>
-                <Nav.Item className="">
-                  <Link to="/register">Register</Link>
-                </Nav.Item>
+                {AuthNav()}
                 <NavDropdown
                   title="Portfolio"
                   id={`offcanvasNavbarDropdown-expand-${screenSize}`}

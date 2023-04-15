@@ -21,7 +21,7 @@ const Register = () => {
       { name: "", userEmail: email, userPassword: password, userAvatar: "" },
     ],
     history: [{}],
-    wallet: [{}],
+    wallet: [{fundsInAccount: Math.floor(Math.random()*100000), buyCoins: {},sellCoins: {}}],
   };
 
   const checkPassword = (password) => {
