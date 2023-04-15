@@ -1,12 +1,12 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
+import { Layout, Typography, Space } from "antd";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import { AuthProvider } from "./contexts/authContext";
 import React, { useState, useEffect } from "react";
 import TickerPrice from "./components/TickerPrice/TickerPrice";
 import { fetchMultipleSymbols } from "./utils/fetchBinanceData";
-import Footer from "./components/Footer/Footer";
 import "./App.css";
 import Histogram from "./components/TickerPrice/Histogram/Histogram";
 import UserInfo from "./components/UserInfo/UserInfo";
@@ -14,6 +14,9 @@ import Wallet from "./components/UserInfo/Wallet/Wallet";
 import History from "./components/UserInfo/History/History";
 import Planing from "./components/UserInfo/Planing/Planing";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import Footer from "./components/Footer/Footer";
+import Homepage from "./components/Homepage/Homepage"
+import CryptoCurrencies from "./components/CryptoCurrencies/CryptoCurrencies";
 
 function AuthRoutes() {
   const isAuth = !!localStorage.getItem("Auth")
@@ -30,8 +33,8 @@ function AuthRoutes() {
   }
 
   return <><Route path={"/logout"} element={<div>Logout Brat</div>}></Route></>
-    
-  
+
+
 }
 
 function App() {
@@ -50,34 +53,41 @@ function App() {
     <>
       <AuthProvider>
         <Navigation />
-        <Routes>
-          <Route index element={<Navigate to={"/coins"} />}></Route>
-          <Route
-            path="/coins"
-            element={
-              <div className="ticker-price-wrapper">
-                {symbols.map((symbolData) => (
-                  <TickerPrice
-                    key={symbolData.symbol}
-                    symbol={symbolData.symbol}
-                  />
-                ))}
-                <Histogram />
-              </div>
-            }
-          >
-            <Route path={"catalog"} element={<div>catalog brat</div>}></Route>
-            <Route path={"details"} element={<div>Details</div>}></Route>
-          </Route>
-          {AuthRoutes()}
-          <Route path="/userInfo">
-            <Route path={"wallet"} element={<Wallet />}></Route>
-            <Route path={"planing"} element={<Planing />}></Route>
-            <Route path={"history"} element={<History />}></Route>
-          </Route>
+        <Layout>
+          <div className="routes">
+            <Routes>
+              <Route path="/" element={<Homepage/>}/>
+              {/* <Route
+                exact path="/coins"
+                element={
+                  <div className="ticker-price-wrapper">
+                    {symbols.map((symbolData) => (
+                      <TickerPrice
+                        key={symbolData.symbol}
+                        symbol={symbolData.symbol}
+                      />
+                    ))}
+                    <Histogram />
+                  </div>
+                }
+              >
+                <Route exact path={"/coins/coin:Id"} element={<div>Details</div>}></Route>
+              </Route> */}
+              <Route path="/coins" element={<CryptoCurrencies/>}>
+              <Route exact path={"/coins/coin:Id"} element={<div>Details</div>}></Route>
+              </Route>
 
-          <Route path={"*"} element={<div>NOT FOUND BRAT</div>}></Route>
-        </Routes>
+              {AuthRoutes()}
+              <Route exact path="/userInfo">
+                <Route path={"wallet"} element={<Wallet />}></Route>
+                <Route path={"planing"} element={<Planing />}></Route>
+                <Route path={"history"} element={<History />}></Route>
+              </Route>
+
+              <Route path={"*"} element={<div>NOT FOUND BRAT</div>}></Route>
+            </Routes>
+          </div>
+        </Layout>
         <Footer />
       </AuthProvider>
     </>

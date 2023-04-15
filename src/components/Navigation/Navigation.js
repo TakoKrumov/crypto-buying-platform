@@ -17,6 +17,7 @@ function AuthNav() {
   if (isAuth) {
     return (
       <>
+
         <Nav.Item className="">
           <Link to="/login">Login</Link>
         </Nav.Item>
@@ -94,8 +95,12 @@ const Navigation = () => {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3 cryExch-nav-center">
                 <Nav.Item>
+                  <Link to="/">Home</Link>
+                </Nav.Item>
+                <Nav.Item>
                   <Link to="/coins">Coins</Link>
                 </Nav.Item>
+
                 {AuthNav()}
                 <NavDropdown
                   title="Portfolio"
