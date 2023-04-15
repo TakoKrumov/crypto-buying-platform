@@ -7,7 +7,35 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState, useEffect } from "react";
-import './Navigation.scss'
+import "./Navigation.scss";
+
+function AuthNav() {
+  const isAuth = !!localStorage.getItem("Auth")
+    ? localStorage.getItem("Auth")
+    : false;
+
+  if (isAuth) {
+    return (
+      <>
+
+        <Nav.Item className="">
+          <Link to="/login">Login</Link>
+        </Nav.Item>
+        <Nav.Item className="">
+          <Link to="/register">Register</Link>
+        </Nav.Item>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Nav.Item className="">
+        <Link to="/logout">Logout</Link>
+      </Nav.Item>
+    </>
+  );
+}
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -24,15 +52,24 @@ function useWindowSize() {
 }
 
 const Navigation = () => {
- 
   const windowSize = useWindowSize();
 
   const getExpandValue = () => {
-    if (windowSize <= 696) return false;
-    if (windowSize <= 768) return "sm";
-    if (windowSize <= 992) return "md";
-    if (windowSize <= 1200) return "lg";
-    if (windowSize <= 1400) return "xl";
+    if (windowSize <= 696) {
+      return false;
+    }
+    if (windowSize <= 768) {
+      return "sm";
+    }
+    if (windowSize <= 992) {
+      return "md";
+    }
+    if (windowSize <= 1200) {
+      return "lg";
+    }
+    if (windowSize <= 1400) {
+      return "xl";
+    }
     return "xxl";
   };
 
@@ -52,20 +89,23 @@ const Navigation = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${screenSize}`}>
+                
                 Crypto Exchange
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3 cryExch-nav-center">
                 <Nav.Item>
+                  <Link to="/">Home</Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Link to="/news">News</Link>
+                </Nav.Item>
+                <Nav.Item>
                   <Link to="/coins">Coins</Link>
                 </Nav.Item>
-                <Nav.Item>
-                  <Link to="/login">Login</Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Link to="/register">Register</Link>
-                </Nav.Item>
+
+                {AuthNav()}
                 <NavDropdown
                   title="Portfolio"
                   id={`offcanvasNavbarDropdown-expand-${screenSize}`}
@@ -96,4 +136,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-

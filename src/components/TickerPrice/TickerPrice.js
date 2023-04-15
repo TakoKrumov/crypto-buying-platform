@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import './TickerPrice.scss';
-import img from'./spinner.gif'
+import img from './spinner.gif'
+import Histogram from './Histogram/Histogram';
 
 const TickerPrice = ({ symbol }) => {
   const [price, setPrice] = useState(null);
@@ -17,7 +18,6 @@ const TickerPrice = ({ symbol }) => {
       const data = JSON.parse(event.data);
       const newPrice = parseFloat(data.c).toFixed(2);
 
-      console.log('ws',ws)
 
       if (price) {
         setPriceChange(newPrice > price ? 'up' : 'down');
@@ -38,8 +38,10 @@ const TickerPrice = ({ symbol }) => {
           {symbol}: $<span className={priceChange}>{price}</span>
         </p>
       ) : (
-        <img src={img} alt="" width='53' height='53'/>
+        <img src={img} alt="" width='53' height='53' />
       )}
+      <Histogram symbol={symbol} /> 
+
     </div>
   );
 };

@@ -31,7 +31,7 @@ export const AuthProvider = ({
   };
 
   const onRegisterSubmit = async (data) => {
-
+    const form = document.getElementById('registerForm')
     const { confirmPassword, ...registerData } = data;
 
     if (!confirmPassword) {
@@ -45,8 +45,8 @@ export const AuthProvider = ({
     try {
       const result = await authService.register(registerData);
 
-
-      navigate('/');
+      navigate('/login');
+      form.reset()
     } catch (error) {
       const result = await Object.values(error)[1];
 

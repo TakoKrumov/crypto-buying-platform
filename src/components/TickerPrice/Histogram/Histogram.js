@@ -6,10 +6,10 @@ import axios from 'axios';
 const Histogram = ({ symbol }) => {
   const chartRef = useRef();
   let isMounted = true; // Add this flag
-  debugger;
+  // debugger;
 
   useEffect(() => {
-    debugger;
+    // debugger;
     fetchDataAndRenderChart();
   
     return () => {
@@ -32,10 +32,11 @@ const Histogram = ({ symbol }) => {
   
       if (isMounted && chartRef.current) {
         const ctx = chartRef.current.getContext('2d');
+        console.log("ne e gre6ka")
         if (window.histogramChart) window.histogramChart.destroy(); // Destroy the previous instance if it exists
   
         window.histogramChart = new Chart(ctx, {
-          type: 'bar',
+          type: Bar,
           data: {
             labels: labels,
             datasets: [
@@ -57,7 +58,7 @@ const Histogram = ({ symbol }) => {
         });
       }
     } catch (error) {
-      console.error('Error fetching data:', error); // Log the error to the console
+      console.log('Error fetching data:', error); // Log the error to the console
     }
   }
   
