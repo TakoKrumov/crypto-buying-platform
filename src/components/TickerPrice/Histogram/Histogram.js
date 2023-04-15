@@ -25,7 +25,6 @@ const Histogram = ({ symbol }) => {
       const response = await axios.get(
         `https://cors-anywhere.herokuapp.com/https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1h&limit=24`
       );
-      console.log(response)
       const data = response.data;
         console.log(data);
       const prices = data.map((item) => parseFloat(item[4])); // Closing prices
