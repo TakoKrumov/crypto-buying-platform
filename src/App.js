@@ -17,6 +17,7 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 import Footer from "./components/Footer/Footer";
 import Homepage from "./components/Homepage/Homepage"
 import CryptoCurrencies from "./components/CryptoCurrencies/CryptoCurrencies";
+import News from "./components/News/News";
 
 function AuthRoutes() {
   const isAuth = !!localStorage.getItem("Auth")
@@ -49,6 +50,8 @@ function App() {
     getSymbols();
   }, []);
 
+  console.log(symbols);
+
   return (
     <>
       <AuthProvider>
@@ -57,8 +60,8 @@ function App() {
           <div className="routes">
             <Routes>
               <Route path="/" element={<Homepage/>}/>
-              {/* <Route
-                exact path="/coins"
+              <Route
+                exact path="/coin"
                 element={
                   <div className="ticker-price-wrapper">
                     {symbols.map((symbolData) => (
@@ -71,11 +74,11 @@ function App() {
                   </div>
                 }
               >
-                <Route exact path={"/coins/coin:Id"} element={<div>Details</div>}></Route>
-              </Route> */}
-              <Route path="/coins" element={<CryptoCurrencies/>}>
-              <Route exact path={"/coins/coin:Id"} element={<div>Details</div>}></Route>
               </Route>
+              <Route exact path="/coins" element={<CryptoCurrencies/>}>
+              <Route  exact path={"coins/coin:Id"} element={<div>Details</div>}></Route>
+              </Route>
+              <Route  path={"/news"} element={<News/>}></Route>
 
               {AuthRoutes()}
               <Route exact path="/userInfo">

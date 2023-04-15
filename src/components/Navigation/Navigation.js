@@ -89,6 +89,7 @@ const Navigation = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${screenSize}`}>
+                
                 Crypto Exchange
               </Offcanvas.Title>
             </Offcanvas.Header>
@@ -96,6 +97,9 @@ const Navigation = () => {
               <Nav className="justify-content-end flex-grow-1 pe-3 cryExch-nav-center">
                 <Nav.Item>
                   <Link to="/">Home</Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Link to="/news">News</Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Link to="/coins">Coins</Link>
