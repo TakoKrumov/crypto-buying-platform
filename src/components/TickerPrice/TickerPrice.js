@@ -18,7 +18,6 @@ const TickerPrice = ({ symbol }) => {
       const data = JSON.parse(event.data);
       const newPrice = parseFloat(data.c).toFixed(2);
 
-      console.log('ws', ws)
 
       if (price) {
         setPriceChange(newPrice > price ? 'up' : 'down');

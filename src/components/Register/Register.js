@@ -21,7 +21,7 @@ const Register = () => {
       { name: "", userEmail: email, userPassword: password, userAvatar: "" },
     ],
     history: [{}],
-    wallet: [{}],
+    wallet: [{fundsInAccount: Math.floor(Math.random()*100000), buyCoins: {},sellCoins: {}}],
   };
 
   const checkPassword = (password) => {
@@ -45,7 +45,6 @@ const Register = () => {
       console.log(false);
       return false;
     }
-    console.log(true);
     return true;
   };
 
@@ -57,7 +56,7 @@ const Register = () => {
     } else if (password !== confirmPassword) {
       setError("Passwords do not match.");
     } else if (checkPassword(password)) {
-      onRegisterSubmit({ email, password, portfolio });
+      onRegisterSubmit({ email, password, confirmPassword, portfolio });
     } else {
       setError("Password is too short or dont go by the rules");
     }
@@ -65,7 +64,7 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <form className="register-form" method="POST" onSubmit={handleSubmit}>
+      <form className="register-form" method="POST" id="registerForm" onSubmit={handleSubmit}>
         <h1>Register</h1>
         {error && <p className="error-message">{error}</p>}
         <input
