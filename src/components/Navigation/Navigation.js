@@ -1,5 +1,5 @@
 import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -8,34 +8,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState, useEffect } from "react";
 import "./Navigation.scss";
-
-function AuthNav() {
-  const isAuth = !!localStorage.getItem("Auth")
-    ? localStorage.getItem("Auth")
-    : false;
-
-  if (isAuth) {
-    return (
-      <>
-
-        <Nav.Item className="">
-          <Link to="/login">Login</Link>
-        </Nav.Item>
-        <Nav.Item className="">
-          <Link to="/register">Register</Link>
-        </Nav.Item>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <Nav.Item className="">
-        <Link to="/logout">Logout</Link>
-      </Nav.Item>
-    </>
-  );
-}
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/authContext';
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -52,6 +26,35 @@ function useWindowSize() {
 }
 
 const Navigation = () => {
+  const [authButtons, setAuthButtons] = useState([]);
+  const { isAuthenticated, onLogout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedInButtons = (
+      <>
+        <Nav.Item onClick={() => {
+          onLogout();
+          navigate('/');
+        }}>
+          <span>Logout</span>
+        </Nav.Item>
+      </>
+    );
+
+    const loggedOutButtons = (
+      <>
+        <Nav.Item>
+          <Link to="/login">Login</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link to="/register">Register</Link>
+        </Nav.Item>
+      </>
+    );
+
+    setAuthButtons(isAuthenticated ? loggedInButtons : loggedOutButtons);
+  }, [isAuthenticated, onLogout, navigate]);
   const windowSize = useWindowSize();
 
   const getExpandValue = () => {
@@ -89,7 +92,7 @@ const Navigation = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${screenSize}`}>
-                
+
                 Crypto Exchange
               </Offcanvas.Title>
             </Offcanvas.Header>
@@ -105,7 +108,7 @@ const Navigation = () => {
                   <Link to="/coins">Coins</Link>
                 </Nav.Item>
 
-                {AuthNav()}
+                {authButtons}
                 <NavDropdown
                   title="Portfolio"
                   id={`offcanvasNavbarDropdown-expand-${screenSize}`}
