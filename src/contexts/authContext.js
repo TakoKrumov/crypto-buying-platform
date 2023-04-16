@@ -6,7 +6,6 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const AuthContext = createContext();
 
-
 export const AuthProvider = ({
   children,
 }) => {
@@ -22,7 +21,7 @@ export const AuthProvider = ({
 
       setAuth(result);
 
-      navigate('/coins');
+      navigate('/');
     } catch (error) {
       const result = await Object.values(error)[1];
 
@@ -63,18 +62,19 @@ export const AuthProvider = ({
     setAuth({});
   };
 
-  const setSubmitAuthError = () => {
-    setTimeout(() => {
-      setError(null)
-    }, "2000");
-  }
+  const setAuthError = (errorMessage) => {
+    setError(errorMessage);
 
+    setTimeout(() => {
+      setError(null);
+    }, 2000);
+  };
 
   const contextValues = {
     onLoginSubmit,
     onRegisterSubmit,
     onLogout,
-    setSubmitAuthError,
+    setAuthError,
     userId: auth._id,
     token: auth.accessToken,
     userName: auth.userName,

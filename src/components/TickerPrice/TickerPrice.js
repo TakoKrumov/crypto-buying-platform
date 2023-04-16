@@ -1,13 +1,14 @@
-// components/TickerPrice.js
 import React, { useState, useEffect } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import './TickerPrice.scss';
 import img from './spinner.gif'
 import Histogram from '../Histogram/Histogram';
 
+
 const TickerPrice = ({ symbol }) => {
   const [price, setPrice] = useState(null);
   const [priceChange, setPriceChange] = useState(null);
+    // const { data: coinHistory } = useGetCryptoHistoryQuery({coinId,timeperiod});
 
   useEffect(() => {
     const ws = new ReconnectingWebSocket(
@@ -40,7 +41,7 @@ const TickerPrice = ({ symbol }) => {
       ) : (
         <img src={img} alt="" width='53' height='53' />
       )}
-      <Histogram symbol={symbol} /> 
+      <Histogram symbol={`${symbol}`} /> 
 
     </div>
   );

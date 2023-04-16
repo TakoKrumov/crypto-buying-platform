@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/authContext";
 import "./Register.scss";
 
 const Register = () => {
-  const { onRegisterSubmit, error, setError } = useContext(AuthContext);
+  const { onRegisterSubmit, error, setAuthError } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,17 +50,18 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     if (!email || !password || !confirmPassword) {
-      setError("Please fill in all the fields.");
+      setAuthError("Please fill in all the fields.");
     } else if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setAuthError("Passwords do not match.");
     } else if (checkPassword(password)) {
       onRegisterSubmit({ email, password, confirmPassword, portfolio });
     } else {
-      setError("Password is too short or dont go by the rules");
+      setAuthError("Password is too short or doesn't go by the rules");
     }
   };
+  
 
   return (
     <div className="register-container">

@@ -19,13 +19,15 @@ import Homepage from "./components/Homepage/Homepage"
 import CryptoCurrencies from "./components/CryptoCurrencies/CryptoCurrencies";
 import News from "./components/News/News";
 import CryptoDetails from "./components/CryptoDetails/CryptoDetails";
+import CombinedComponent from '../src/components/combinedComponent/combinedComponent';
+
 
 function AuthRoutes() {
   const isAuth = !!localStorage.getItem("Auth")
     ? localStorage.getItem("Auth")
     : false;
 
-  if (isAuth) {
+  if (!isAuth) {
     return (
       <>
         <Route path={"/login"} element={<Login />}></Route>
@@ -34,10 +36,9 @@ function AuthRoutes() {
     );
   }
 
-  return <><Route path={"/logout"} element={<div>Logout Brat</div>}></Route></>
-
-
+  return <><Route path={"/logout"} element={<div>dassdadasa</div>}>Logout</Route></>
 }
+
 
 function App() {
   const [symbols, setSymbols] = useState([]);
@@ -76,6 +77,8 @@ function App() {
                 }
               >
               </Route>
+              <Route exact path="/coinss" element={<CombinedComponent />} />
+
               <Route exact path="/coins" element={<CryptoCurrencies />} />
               <Route path="/coins/:coinId" element={<CryptoDetails />} />
               <Route path={"/news"} element={<News />}></Route>
