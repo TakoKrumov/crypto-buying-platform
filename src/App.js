@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 import TickerPrice from "./components/TickerPrice/TickerPrice";
 import { fetchMultipleSymbols } from "./utils/fetchBinanceData";
 import "./App.css";
-import Histogram from "./components/TickerPrice/Histogram/Histogram";
+import Histogram from "./components/Histogram/Histogram";
 import UserInfo from "./components/UserInfo/UserInfo";
 import Wallet from "./components/UserInfo/Wallet/Wallet";
 import History from "./components/UserInfo/History/History";
@@ -18,6 +18,7 @@ import Footer from "./components/Footer/Footer";
 import Homepage from "./components/Homepage/Homepage"
 import CryptoCurrencies from "./components/CryptoCurrencies/CryptoCurrencies";
 import News from "./components/News/News";
+import CryptoDetails from "./components/CryptoDetails/CryptoDetails";
 
 function AuthRoutes() {
   const isAuth = !!localStorage.getItem("Auth")
@@ -59,7 +60,7 @@ function App() {
         <Layout>
           <div className="routes">
             <Routes>
-              <Route path="/" element={<Homepage/>}/>
+              <Route path="/" element={<Homepage />} />
               <Route
                 exact path="/coin"
                 element={
@@ -75,10 +76,9 @@ function App() {
                 }
               >
               </Route>
-              <Route exact path="/coins" element={<CryptoCurrencies/>}>
-              <Route  exact path={"coins/coin:Id"} element={<div>Details</div>}></Route>
-              </Route>
-              <Route  path={"/news"} element={<News/>}></Route>
+              <Route exact path="/coins" element={<CryptoCurrencies />} />
+              <Route path="/coins/:coinId" element={<CryptoDetails />} />
+              <Route path={"/news"} element={<News />}></Route>
 
               {AuthRoutes()}
               <Route exact path="/userInfo">

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import './TickerPrice.scss';
 import img from './spinner.gif'
-import Histogram from './Histogram/Histogram';
+import Histogram from '../Histogram/Histogram';
 
 const TickerPrice = ({ symbol }) => {
   const [price, setPrice] = useState(null);
