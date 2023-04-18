@@ -9,12 +9,12 @@ const Histogram = ({ coinHistory, currentPrice, coinName }) => {
   const coinTimestamp = [];// change to use state hook 
  
   // useEffect(()=> {
-    for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
+    for (let i = coinHistory?.data?.history?.length-1; i > 0; i -= 1) {
       // setCoinPrice(...coinPrice,coinHistory?.data?.history[i].price );
       coinPrice.push(coinHistory?.data?.history[i].price);
     }
   
-    for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
+    for (let i = coinHistory?.data?.history?.length-1; i > 0; i -= 1) {
       // console.log('Raw timestamp:', coinHistory?.data?.history[i].timestamp);
     
       const timestamp = coinHistory?.data?.history[i].timestamp * 1000; // Multiply by 1000
@@ -39,7 +39,7 @@ const Histogram = ({ coinHistory, currentPrice, coinName }) => {
       yAxes: [
         {
           ticks: {
-            beginAtZero: true,
+            beginAtZero: false,
           },
         },
       ],
