@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import millify from 'millify';
-import { Link ,Outlet} from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Card, Row, Col, Input } from 'antd'
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 
@@ -10,7 +10,31 @@ const CryptoCurrencies = ({ simplified }) => {
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  console.log(cryptoList);
+  const apiKey = '5fd35db8a179b2fdf6a1c80fb243993e7eb9d24e0cc399d90e17977dfb55d742';
+
+  useEffect(() => {
+    const ccStreamer = new WebSocket(`wss://streamer.cryptocompare.com/v2?api_key=${apiKey}`);
+  
+    ccStreamer.onopen = function onStreamOpen() {
+      let subs = cryptoList?.data.coins.slice(0, 10).map((coin) => `2~Coinbase~${coin.symbol}~USD`);
+  
+      var subRequest = {
+        action: 'SubAdd',
+        subs: subs,
+      };
+      ccStreamer.send(JSON.stringify(subRequest));
+    };
+  
+    ccStreamer.onmessage = function onStreamMessage(event) {
+      var message = event.data;
+      console.log('Received from Cryptocompare: ' + message);
+    };
+  
+    return () => {
+      ccStreamer.close();
+    };
+  }, []);
+
 
   useEffect(() => {
 
@@ -29,7 +53,7 @@ const CryptoCurrencies = ({ simplified }) => {
         </div>
       )}
       <Row gutter={[32, 32]} className='crypto-card-container'>
-        <Outlet/>
+        <Outlet />
         {cryptos?.map((currency) => (
           <Col xs={24} sm={12} lg={6} className='crypto-card' key={currency.uuid}>
             <Link to={`/coins/${currency.uuid}`}>

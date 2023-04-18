@@ -1,23 +1,27 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Col, Row, Typography } from 'antd';
 
 const { Title } = Typography;
 
 const Histogram = ({ coinHistory, currentPrice, coinName }) => {
-  const coinPrice = [];
-  const coinTimestamp = [];
-
-  for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
-    coinPrice.push(coinHistory?.data?.history[i].price);
-  }
-
-  for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
-    console.log('Raw timestamp:', coinHistory?.data?.history[i].timestamp);
+  const coinPrice = []; // change to use state hook 
+  const coinTimestamp = [];// change to use state hook 
+ 
+  // useEffect(()=> {
+    for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
+      // setCoinPrice(...coinPrice,coinHistory?.data?.history[i].price );
+      coinPrice.push(coinHistory?.data?.history[i].price);
+    }
   
-    const timestamp = coinHistory?.data?.history[i].timestamp * 1000; // Multiply by 1000
-    coinTimestamp.push(new Date(timestamp).toLocaleDateString());
-  }
+    for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
+      // console.log('Raw timestamp:', coinHistory?.data?.history[i].timestamp);
+    
+      const timestamp = coinHistory?.data?.history[i].timestamp * 1000; // Multiply by 1000
+      coinTimestamp.push(new Date(timestamp).toLocaleDateString());
+    }
+  
+  // }, [coinHistory])
   const data = {
     labels: coinTimestamp,
     datasets: [
