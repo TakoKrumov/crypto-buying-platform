@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import millify from 'millify';
 import { Link, Outlet } from 'react-router-dom';
-import { Card, Row, Col, Input } from 'antd'
+import { Card, Row, Col, Input,Button } from 'antd'
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import TickerPrice from '../TickerPrice/TickerPrice';
 
 const CryptoCurrencies = ({ simplified }) => {
-  const count = simplified ? 10 : 49;
+  const count = simplified ? 10 : 100;
   const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [tickerPrice, setTickerPrice] = useState('');
 
-  const apiKey = '5fd35db8a179b2fdf6a1c80fb243993e7eb9d24e0cc399d90e17977dfb55d742';
+  const apiKey = 'b00a2e01fe6393e997d1e5c7248480ba8eed7d6506e111189146cadf00eb8c45';
   const ccStreamer = new WebSocket(`wss://streamer.cryptocompare.com/v2?api_key=${apiKey}`);
 
   useEffect(() => {
 
     ccStreamer.onopen = function onStreamOpen() {
-      let subs = cryptoList?.data.coins.slice(0, 9).map((coin) => `2~Coinbase~${coin.symbol}~USD`);
+      let subs = cryptoList?.data.coins.slice(0, 1).map((coin) => `2~Coinbase~${coin.symbol}~USD`);
       var subRequest = {
         action: 'SubAdd',
         subs: subs,
@@ -66,19 +66,20 @@ const CryptoCurrencies = ({ simplified }) => {
                 {
                   simplified ? (
                     <>
-                      <p>Price: {TickerPrice}</p>
-                      <p>Market Cap: {millify(currency.marketCap)}</p>
+                      <p>Price: {TickerPrice} $</p>
+                      <p>Market Cap: {millify(currency.marketCap)} $</p>
                       <p>Daily Change: {millify(currency.change)}%</p>
                     </>
 
                   ) : (
                     <>
-                      <p>Price: {millify(currency.price)}</p>
-                      <p>Market Cap: {millify(currency.marketCap)}</p>
+                      <p>Price: {millify(currency.price)} $</p>
+                      <p>Market Cap: {millify(currency.marketCap)} $</p>
                       <p>Daily Change: {millify(currency.change)}%</p>
                     </>
                   )
                 }
+                  <Button type="primary" className="buy-button">Buy</Button>
               </Card>
             </Link>
           </Col>
