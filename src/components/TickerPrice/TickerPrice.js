@@ -5,6 +5,8 @@ import img from './spinner.gif'
 import Histogram from '../Histogram/Histogram';
 
 
+
+
 const TickerPrice = ({ symbol }) => {
   const [price, setPrice] = useState(null);
   const [priceChange, setPriceChange] = useState(null);
