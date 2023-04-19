@@ -1,0 +1,31 @@
+@keyframes glowing-green {
+  0% {
+    color: green;
+  }
+  50% {
+    color: #6aff82;
+  }
+  100% {
+    color: green;
+  }
+}
+
+@keyframes glowing-red {
+  0% {
+    color: red;
+  }
+  50% {
+    color: #ff7878;
+  }
+  100% {
+    color: red;
+  }
+}
+
+.glowing-green {
+  animation: glowing-green 2s infinite;
+}
+
+.glowing-red {
+  animation: glowing-red 2s infinite;
+}

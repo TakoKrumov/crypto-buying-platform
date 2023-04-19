@@ -19,7 +19,6 @@ import Homepage from "./components/Homepage/Homepage"
 import CryptoCurrencies from "./components/CryptoCurrencies/CryptoCurrencies";
 import News from "./components/News/News";
 import CryptoDetails from "./components/CryptoDetails/CryptoDetails";
-import CombinedComponent from '../src/components/combinedComponent/combinedComponent';
 
 
 function AuthRoutes() {
@@ -77,7 +76,6 @@ function App() {
                 }
               >
               </Route>
-              <Route exact path="/coinss" element={<CombinedComponent />} />
 
               <Route exact path="/coins" element={<CryptoCurrencies />} />
               <Route path="/coins/:coinId" element={<CryptoDetails />} />
