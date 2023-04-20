@@ -8,8 +8,16 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState, useEffect } from "react";
 import "./Navigation.scss";
+<<<<<<< HEAD
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/authContext';
+import { useTheme } from '../../contexts/themeContext'
+
+
+=======
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/authContext";
+>>>>>>> e0aa4116007edfd508cb48324c639b785905e4f1
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -26,6 +34,7 @@ function useWindowSize() {
 }
 
 const Navigation = () => {
+  const { toggleTheme } = useTheme();
   const [authButtons, setAuthButtons] = useState([]);
   const { isAuthenticated, onLogout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -81,7 +90,7 @@ const Navigation = () => {
   const screenSize = getExpandValue();
   return (
     <>
-      <Navbar key={screenSize} bg="light" expand={screenSize} className="mb-3">
+      <Navbar key={screenSize} expand={screenSize} className="mb-3">
         <Container fluid>
           <Navbar.Brand>Exchange Crypto</Navbar.Brand>
           <Navbar.Toggle
@@ -139,15 +148,7 @@ const Navigation = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
+              <button onClick={toggleTheme}>Toggle Theme</button>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>

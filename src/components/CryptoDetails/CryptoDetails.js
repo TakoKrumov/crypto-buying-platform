@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import HtmlReactParser from 'html-react-parser'
 import { useParams } from "react-router-dom";
 import millify from "millify";
-import { Col, Row, Typography, Select } from "antd";
+import { Col, Row, Typography, Select,Button } from "antd";
 import { MoneyCollectOutlined,TrophyOutlined, DollarCircleOutlined, FundOutlined, ExclamationCircleOutlined, StopOutlined,ThunderboltOutlined,NumberOutlined,CheckOutlined } from '@ant-design/icons';
 import {useGetCryptoDetailsQuery,useGetCryptoHistoryQuery} from "../../services/cryptoApi"
 import HTMLReactParser from "html-react-parser";
 import Histogram from "../Histogram/Histogram";
+import KlineHistogram from "../Histogram/KlineHistogram"; 
+
+
 
 
 
@@ -20,7 +23,9 @@ const CryptoDetails = () => {
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
   const { data: coinHistory } = useGetCryptoHistoryQuery({coinId,timeperiod});
   const cryptoDetails = data?.data?.coin;
+  const symbol = cryptoDetails?.symbol + "USDT";
   
+
   if (isFetching) return "Loading";
   console.log("Here: ",coinHistory);
 
@@ -44,7 +49,6 @@ const CryptoDetails = () => {
     { title: 'Circulating Supply', value: `$ ${cryptoDetails?.supply?.circulating && millify(cryptoDetails?.supply?.circulating)}`, icon: <ExclamationCircleOutlined /> },
   ];
 
-  console.log(cryptoDetails);
   return (
     <Col className="coin-detail-container">
       <Col className="coin-heading-container">
@@ -61,6 +65,7 @@ const CryptoDetails = () => {
         {time.map((date)=><Option key={date}>{date}</Option>)}
       </Select>
       <Histogram coinHistory={coinHistory} currentPrice={millify(cryptoDetails?.price)} coinName={cryptoDetails?.name} />
+      <KlineHistogram symbol={symbol} interval="1h" />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
             <Col className="coin-value-statistics-heading">

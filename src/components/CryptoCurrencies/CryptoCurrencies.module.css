@@ -29,3 +29,9 @@
 .glowing-red {
   animation: glowing-red 2s infinite;
 }
+
+.icon-align {
+  position: relative;
+  top: -3px;
+  
+}
