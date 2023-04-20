@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import HtmlReactParser from 'html-react-parser'
 import { useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ import {useGetCryptoDetailsQuery,useGetCryptoHistoryQuery} from "../../services/
 import HTMLReactParser from "html-react-parser";
 import Histogram from "../Histogram/Histogram";
 import KlineHistogram from "../Histogram/KlineHistogram"; 
-
+import { fetchKlines } from "../../services/klineApi";
 
 
 
@@ -24,7 +24,11 @@ const CryptoDetails = () => {
   const { data: coinHistory } = useGetCryptoHistoryQuery({coinId,timeperiod});
   const cryptoDetails = data?.data?.coin;
   const symbol = cryptoDetails?.symbol + "USDT";
+  const [klines, setKlines] = useState([])
   
+  useEffect(() => {
+    fetchKlines(symbol, "1h", 500).then(setKlines);
+  }, [symbol]);
 
   if (isFetching) return "Loading";
   console.log("Here: ",coinHistory);
@@ -65,7 +69,7 @@ const CryptoDetails = () => {
         {time.map((date)=><Option key={date}>{date}</Option>)}
       </Select>
       <Histogram coinHistory={coinHistory} currentPrice={millify(cryptoDetails?.price)} coinName={cryptoDetails?.name} />
-      <KlineHistogram symbol={symbol} interval="1h" />
+      {klines && klines.length > 0 && <KlineHistogram symbol={symbol} interval="1h" />}
       <Col className="stats-container">
         <Col className="coin-value-statistics">
             <Col className="coin-value-statistics-heading">
@@ -95,6 +99,7 @@ const CryptoDetails = () => {
                 </p>
               </Title>
             </Col>
+            
             {genericStats.map(({icon,title,value})=>(
               <Col className="coin-stats">
                 <Col className="coin-stats-name">

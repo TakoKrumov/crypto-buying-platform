@@ -8,16 +8,9 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState, useEffect } from "react";
 import "./Navigation.scss";
-<<<<<<< HEAD
-import { useContext } from 'react';
-import { AuthContext } from '../../contexts/authContext';
-import { useTheme } from '../../contexts/themeContext'
-
-
-=======
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/authContext";
->>>>>>> e0aa4116007edfd508cb48324c639b785905e4f1
+import { useTheme } from "../../contexts/themeContext";
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
