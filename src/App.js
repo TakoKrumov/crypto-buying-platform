@@ -23,6 +23,7 @@ import { useTheme } from './contexts/themeContext';
 
 
 
+
 function AuthRoutes() {
   const isAuth = !!localStorage.getItem("Auth")
     ? localStorage.getItem("Auth")
@@ -67,6 +68,7 @@ function App() {
                 <Routes>
 
                   <Route path="/" element={<Homepage />} />
+                  
                   <Route exact path="/coins" element={<CryptoCurrencies />} />
                   <Route path="/coins/:coinId" element={<CryptoDetails />} />
                   <Route path={"/news"} element={<News />}></Route>

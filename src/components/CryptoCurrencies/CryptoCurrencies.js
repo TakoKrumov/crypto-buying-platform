@@ -33,7 +33,6 @@ const CryptoCurrencies = ({ simplified }) => {
 
     ccStreamer.onmessage = function onStreamMessage(event) {
       var message = event.data;
-      console.log('Received from Cryptocompare: ' + message);
 
       const parsedMessage = JSON.parse(message);
       if (parsedMessage.TYPE === "2") {

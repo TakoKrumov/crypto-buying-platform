@@ -92,7 +92,7 @@ a:hover{
 
 .navbar{
     flex: 0.2;
-    background-color: rgb(0, 21, 41);
+    background-color: var(--bgPrimary);
 }
 
 .main{
@@ -366,7 +366,7 @@ a:hover{
     justify-content: space-between !important;
 }
 .news-title{
-width: 70%;
+    width: 70%;
 }
 
 .news-image-container .img{
