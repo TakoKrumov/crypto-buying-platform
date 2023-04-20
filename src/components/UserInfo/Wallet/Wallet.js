@@ -6,11 +6,15 @@ import ExchangeCrypto from "./CryptoExchange"
 
 const Wallet = () => {
   return (
+    <>
+    <h3>Crypto Wallet</h3>
       <div className="wallet">
+        
         <BuyingCoins />;
         <ExchangeCrypto />
         <AddingFunds />;
       </div>
+      </>
   );
 };
 

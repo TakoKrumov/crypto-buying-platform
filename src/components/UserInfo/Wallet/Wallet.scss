@@ -4,12 +4,17 @@
   height: 85vh;
   padding: 15px;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   .wallet-buyingCrypto,
-  .wallet-addingFunds {
+  .wallet-addingFunds,
+  .wallet-exchangingCrypto {
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    align-items: center;
+    min-width: 790px;
+    max-width: 850px;
     height: 110px;
     border: solid 3px black;
     border-radius: 50px;
@@ -71,7 +76,7 @@
 
       &:hover {
         background-color: rgba(55, 120, 222, 1);
-        font-size: 22px;
+        font-size: 19px;
       }
 
       &::-webkit-input-placeholder {

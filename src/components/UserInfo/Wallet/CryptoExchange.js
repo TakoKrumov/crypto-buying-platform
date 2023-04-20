@@ -3,115 +3,145 @@ import "./Wallet.scss";
 import img from "./spinner.gif";
 import { useGetCryptosQuery } from "../../../services/cryptoApi";
 
-export default function ExchangeCrypto() {
+export default function ExchangeCoins() {
   const count = 100;
   const { data: cryptoList } = useGetCryptosQuery(count);
-  const [symbol, setSymbol] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [icon, setIcon] = useState(img);
-  const [selectedPrice, setSelectedPrice] = useState(0);
-  const [myMoney, setMyMoney] = useState(
-    JSON.parse(localStorage.getItem("auth")).portfolio.wallet[0].fundsInAccount
+  const [selectedCoin, setSelectedCoin] = useState(null);
+  const [targetCoin, setTargetCoin] = useState(null);
+  const [amountFirst, setAmountFirst] = useState(0);
+  const [amountSecond, setAmountSecond] = useState(0);
+  const [iconFirst, setIconFirst] = useState(img);
+  const [iconSecond, setIconSecond] = useState(img);
+  const [amountForExchange, setAmountForExchange] = useState(0);
+  const [userCoins, setUserCoins] = useState(
+    JSON.parse(localStorage.getItem("auth")).portfolio.wallet[0].buyCoins
   );
 
   const coinData = cryptoList?.data.coins;
 
-  const handleCurrencyChange = (event) => {
+  const handleSelectedCoinChange = (event) => {
     const selectedIndex = event.target.selectedIndex;
-    const selectedCoinPrice = parseFloat(event.target.value);
-    const selectedCoin = event.target.options[selectedIndex].id;
-    setSelectedPrice(selectedCoinPrice);
-    console.log(selectedCoin);
-    setSymbol(selectedCoin);
-    console.log(event.target.options[selectedIndex]);
-    setIcon(event.target.options[selectedIndex].dataset.icon);
+    const selectedSymbol = event.target.options[selectedIndex].id;
+    const temporal = userCoins.find(coin => coin?.symbol === selectedSymbol);
+    console.log(`temporal`,temporal)
+    const selectedCoinData = coinData.find(coin => coin?.symbol === temporal?.symbol)
+    setSelectedCoin(selectedCoinData);
+    setIconFirst(selectedCoinData.iconUrl)
+    setAmountFirst(parseFloat(temporal.amount))
+    console.log(amountFirst); 
+    console.log(temporal.amount); 
+    
   };
 
-  // const handleAmountChange = (event) => {
-  //   setAmount(event.target.value);
-  // };
+  const handleTargetCoinChange = (event) => {
+    const selectedIndex = event.target.selectedIndex;
+    const selectedSymbol = event.target.options[selectedIndex].id;
+    const selectedCoinPrice = parseFloat(event.target.value);
+    setTargetCoin({ symbol: selectedSymbol, price: selectedCoinPrice });
+    setIconSecond(event.target.options[selectedIndex].dataset.icon);
+    
+    console.log(targetCoin); 
+    
+  };
+
   const handleAmountChange = (event) => {
     let inputAmount = parseFloat(event.target.value);
-    const maxAmount = parseFloat(myMoney / selectedPrice.toFixed(2));
+    // const maxAmount = parseFloat(amountFirst || 0);
 
-    if (inputAmount >= maxAmount) {
-      inputAmount = maxAmount.toFixed(2);
+    if (inputAmount >= amountFirst) {
+      inputAmount = amountFirst.toFixed(2);
     }
 
-    setAmount(inputAmount);
+    setAmountSecond(inputAmount);
   };
 
-  const handleBuyCoins = () => {
-    // Check if the user selected a coin symbol
-    if (symbol === "") {
-      alert("Please select a coin to buy.");
+  const handleExchangeCoins = () => {
+    if (!selectedCoin || !targetCoin) {
+      alert("Please select both coins for the exchange.");
       return;
     }
 
     const user = JSON.parse(localStorage.getItem("auth"));
-    const coinPurchase = {
-      symbol: symbol,
-      amount: parseFloat(amount).toFixed(2),
-      pricePerCoin: parseFloat(selectedPrice).toFixed(2),
-      purchaseTotal: parseFloat(amount * selectedPrice).toFixed(2),
-    };
+    const coinsInWallet = user.portfolio.wallet[0].buyCoins;
 
-    // Check if the user has enough funds to buy the coins
-    if (
-      parseFloat(user.portfolio.wallet[0].fundsInAccount) >=
-      parseFloat(coinPurchase.purchaseTotal)
-    ) {
-      // Deduct the purchase amount from the user's funds
-      user.portfolio.wallet[0].fundsInAccount = (
-        parseFloat(user.portfolio.wallet[0].fundsInAccount) -
-        parseFloat(coinPurchase.purchaseTotal)
+    const targetCoinInWallet = coinsInWallet.find(
+      (coin) => coin.symbol === targetCoin.symbol
+    );
+
+    const exchangedAmount = (amountSecond * selectedCoin.price) / targetCoin.price;
+
+    if (targetCoinInWallet) {
+      targetCoinInWallet.amount = (
+        parseFloat(targetCoinInWallet.amount) + exchangedAmount
       ).toFixed(2);
-
-      // Check if the user already has the selected coin in their wallet
-      const existingCoin = user.portfolio.wallet[0].buyCoins.find(
-        (coin) => coin.symbol === symbol
-      );
-
-      if (existingCoin) {
-        // If the coin exists, update the coin amount
-        existingCoin.amount = (
-          parseFloat(existingCoin.amount) + parseFloat(amount)
-        ).toFixed(2);
-      } else {
-        // If the coin doesn't exist, add the coin and its amount to the wallet
-        user.portfolio.wallet[0].buyCoins.push({
-          symbol: symbol,
-          amount: parseFloat(amount).toFixed(2),
-        });
-      }
-
-      // Save the updated user object back to Local Storage
-      localStorage.setItem("auth", JSON.stringify(user));
-
-      // Reset the form fields
-      setSymbol("");
-      setAmount(0);
-      setSelectedPrice(0);
-      setIcon(img);
-
-      // Reset the select form
-      document.querySelector("select[name='currency']").selectedIndex = 0;
     } else {
-      alert("You don't have enough funds to buy the selected coins.");
+      coinsInWallet.push({
+        symbol: targetCoin.symbol,
+        amount: exchangedAmount.toFixed(2),
+      });
     }
+
+    selectedCoin.amount = (
+      parseFloat(0) - parseFloat(0)
+    ).toFixed(2);
+
+    if (parseFloat(selectedCoin.amount) === 0) {
+      coinsInWallet.splice(
+        coinsInWallet.findIndex((coin) => coin.symbol === selectedCoin.symbol),
+        1
+      );
+    }
+
+    localStorage.setItem("auth", JSON.stringify(user));
+
+    setSelectedCoin(null);
+    setTargetCoin(null);
+    setAmountSecond(0);
+    setIconSecond(img);
+
+    document.querySelector("select[name='selectedCoin']").selectedIndex = 0;
+    document.querySelector("select[name='targetCoin']").selectedIndex = 0;
   };
 
-  const handleAddFunds = () => {};
   return (
     <>
-      <h1>Exchange Crypto</h1>
-      <div className="wallet-buyingCrypto">
-        <h3>Buying coins</h3>
+      <h3>Exchange Coins</h3>
+      <div className="wallet-exchangingCrypto">
         <div className="crpExh-container">
-          <label htmlFor="currency">Currency:</label>
+          <label htmlFor="selectedCoin">From:</label>
           <span>
-            <select name="currency" onChange={handleCurrencyChange}>
-              <option value="0" id="">
+            <select name="selectedCoin" onChange={handleSelectedCoinChange}>
+              <option value="" id="">
+                Select...
+              </option>
+              {userCoins.map((coin, index) => (
+                <option key={index} id={coin.symbol} data-icon={coin.iconUrl}>
+                  {coin.symbol}
+                </option>
+              ))}
+            </select>
+            <img
+              src={!iconFirst === true ? img : iconFirst}
+              alt=""
+              className="crpExh-icon"
+            />
+          </span>
+        </div>
+        <div className="crpExh-container">
+          <label htmlFor="amount">Exchanging Amountaa:</label>
+          <input
+            type="number"
+            min={0}
+            max={parseFloat(amountFirst).toFixed(2)}         
+            name="amount"
+            onChange={handleAmountChange}
+          />
+        </div>
+        <div className="crpExh-container">
+          <label htmlFor="targetCoin">To:</label>
+          <span>
+            <select name="targetCoin" onChange={handleTargetCoinChange}>
+              <option value="" id="">
                 Select...
               </option>
               {coinData?.map((coin, index) => (
@@ -126,34 +156,27 @@ export default function ExchangeCrypto() {
               ))}
             </select>
             <img
-              src={!icon === true ? img : icon}
+              src={!iconSecond === true ? img : iconSecond}
               alt=""
               className="crpExh-icon"
             />
           </span>
         </div>
         <div className="crpExh-container">
-          <label htmlFor="pricePerCoin">Price per coin:</label>
-          <span>${selectedPrice.toFixed(2)} </span>
-        </div>
-        <div className="crpExh-container">
-          <label htmlFor="amount">Buying Quantity:</label>
+          <label htmlFor="amount">Exchanging Amount:</label>
           <input
             type="number"
             min={0}
-            max={(myMoney / selectedPrice).toFixed(2)}
+            max={parseFloat(amountSecond || 0).toFixed(2)}
             name="amount"
-            value={!!amount ? parseFloat(amount) : 0}
+            value={0}
             onChange={handleAmountChange}
           />
         </div>
-        <span type="radio" name="" id="crpExh-total" /> Total: $
-        {(amount * selectedPrice).toFixed(2)}
-        <button onClick={handleBuyCoins} className="crpExh-btn">
+        <button onClick={handleExchangeCoins} className="crpExh-btn">
           Exchange
         </button>
       </div>
-      </> 
-      
+    </>
   );
 }

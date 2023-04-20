@@ -21,7 +21,6 @@ export default function BuyingCoins() {
     const selectedCoinPrice = parseFloat(event.target.value);
     const selectedCoin = event.target.options[selectedIndex].id;
     setSelectedPrice(selectedCoinPrice);
-    console.log(selectedCoin);
     setSymbol(selectedCoin);
     console.log(event.target.options[selectedIndex]);
     setIcon(event.target.options[selectedIndex].dataset.icon);
@@ -104,9 +103,9 @@ export default function BuyingCoins() {
   const handleAddFunds = () => {};
   return (
     <>
-      <h1>Crypto Wallet</h1>
+      <h3>Buying coins</h3>
       <div className="wallet-buyingCrypto">
-        <h3>Buying coins</h3>
+        
         <div className="crpExh-container">
           <label htmlFor="currency">Currency:</label>
           <span>
