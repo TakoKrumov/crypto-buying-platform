@@ -73,6 +73,11 @@
         background-color: rgba(55, 120, 222, 1);
         font-size: 22px;
       }
+
+      &::-webkit-input-placeholder {
+        text-decoration: none;
+        
+      }
     }
 
 
