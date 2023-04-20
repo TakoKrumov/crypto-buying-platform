@@ -5,14 +5,16 @@
   gap: 10px;
 }
 
-.dropdown-menu {
-  &.show{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+
+.cryExch-navDropdownItem {
+  display: inline-block !important; 
+  width: 100% !important;
+  text-align: center !important;
+  padding: 8px 16px !important;
+  font-size: 16px !important;
+  white-space: nowrap !important;
 }
+<<<<<<< HEAD
   
 .light-theme {
   --text-primary: #000;
@@ -39,3 +41,8 @@ body {
 .navbar {
   background-color: var(--bg-secondary);
 }
+=======
+
+
+            
+>>>>>>> e0aa4116007edfd508cb48324c639b785905e4f1

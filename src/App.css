@@ -100,9 +100,9 @@ a:hover{
     width: 100%;
     
 }
-.routes{
+/* .routes{
     padding: 20px;
-}
+} */
 .nav-container{
     position: fixed;
     left: 0;
@@ -454,8 +454,12 @@ a:hover{
     margin-top: 1rem;
   }
 
+<<<<<<< HEAD
   .icon-align {
     position: relative;
     top: 15px;
   }
   
+=======
+ 
+>>>>>>> e0aa4116007edfd508cb48324c639b785905e4f1

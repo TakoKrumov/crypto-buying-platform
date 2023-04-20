@@ -8,11 +8,16 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState, useEffect } from "react";
 import "./Navigation.scss";
+<<<<<<< HEAD
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/authContext';
 import { useTheme } from '../../contexts/themeContext'
 
 
+=======
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/authContext";
+>>>>>>> e0aa4116007edfd508cb48324c639b785905e4f1
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -37,10 +42,12 @@ const Navigation = () => {
   useEffect(() => {
     const loggedInButtons = (
       <>
-        <Nav.Item onClick={() => {
-          onLogout();
-          navigate('/');
-        }}>
+        <Nav.Item
+          onClick={() => {
+            onLogout();
+            navigate("/");
+          }}
+        >
           <span>Logout</span>
         </Nav.Item>
       </>
@@ -96,7 +103,6 @@ const Navigation = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${screenSize}`}>
-
                 Crypto Exchange
               </Offcanvas.Title>
             </Offcanvas.Header>
@@ -116,13 +122,30 @@ const Navigation = () => {
                 <NavDropdown
                   title="Portfolio"
                   id={`offcanvasNavbarDropdown-expand-${screenSize}`}
-                  className="cryExch-dropdown"
                 >
-                  <Link to="/userInfo/wallet">Wallet</Link>
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/userInfo/wallet"
+                    className="cryExch-navDropdownItem"
+                  >
+                    Wallet
+                  </NavDropdown.Item>
 
-                  <Link to="/userInfo/planing">Planning</Link>
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/userInfo/planing"
+                    className="cryExch-navDropdownItem"
+                  >
+                    Planning
+                  </NavDropdown.Item>
 
-                  <Link to="/userInfo/history">History</Link>
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/userInfo/history"
+                    className="cryExch-navDropdownItem"
+                  >
+                    History
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <button onClick={toggleTheme}>Toggle Theme</button>
