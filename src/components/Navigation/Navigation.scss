@@ -14,3 +14,28 @@
   }
 }
   
+.light-theme {
+  --text-primary: #000;
+  --bg-primary: #fff;
+  --bg-secondary: #F9F9F9;
+  --pink: #0071bd;
+  --light-blue: #e6f7ff;
+  --border: #d9d9d9;
+}
+
+.dark-theme {
+  --text-primary: #fff;
+  --bg-primary: #121212;
+  --bg-secondary: #1d1d1d;
+  --pink: #0071bd;
+  --light-blue: #424242;
+  --border: #d9d9d9;
+}
+body {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+.navbar {
+  background-color: var(--bg-secondary);
+}

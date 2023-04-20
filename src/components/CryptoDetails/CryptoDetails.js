@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import HtmlReactParser from 'html-react-parser'
 import { useParams } from "react-router-dom";
 import millify from "millify";
-import { Col, Row, Typography, Select } from "antd";
+import { Col, Row, Typography, Select,Button } from "antd";
 import { MoneyCollectOutlined,TrophyOutlined, DollarCircleOutlined, FundOutlined, ExclamationCircleOutlined, StopOutlined,ThunderboltOutlined,NumberOutlined,CheckOutlined } from '@ant-design/icons';
 import {useGetCryptoDetailsQuery,useGetCryptoHistoryQuery} from "../../services/cryptoApi"
 import HTMLReactParser from "html-react-parser";
 import Histogram from "../Histogram/Histogram";
+
 
 
 
@@ -21,6 +22,7 @@ const CryptoDetails = () => {
   const { data: coinHistory } = useGetCryptoHistoryQuery({coinId,timeperiod});
   const cryptoDetails = data?.data?.coin;
   
+
   if (isFetching) return "Loading";
   console.log("Here: ",coinHistory);
 

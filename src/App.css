@@ -14,19 +14,19 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+    background-color: var(--bgPrimary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: var(--text-primary);
+  }
 
-.App-link {
-  color: #61dafb;
-}
+  .App-link {
+    color: var(--pink);
+  }
 
 @keyframes App-logo-spin {
   from {
@@ -42,17 +42,38 @@
   flex-wrap: wrap;
   height: 80vh;
 }
+body {
+    color: var(--text-primary);
+    background-color: var(--bgPrimary);
+  }
 
 
-
-:root{
-    --text-primary:#000;
-    --bgPrimary:#fff;
-   --bgSecondary: #F9F9F9;
-   --pink: #0071bd;
-   --light-blue: #e6f7ff;
-   --border: #d9d9d9;
-}
+  :root {
+    --text-primary: #000;
+    --bgPrimary: #fff;
+    --bgSecondary: #F9F9F9;
+    --pink: #0071bd;
+    --light-blue: #e6f7ff;
+    --border: #d9d9d9;
+  }
+  
+  .light-theme {
+    --text-primary: #000;
+    --bgPrimary: #fff;
+    --bgSecondary: #F9F9F9;
+    --pink: #0071bd;
+    --light-blue: #e6f7ff;
+    --border: #d9d9d9;
+  }
+  
+  .dark-theme {
+    --text-primary: #fff;
+    --bgPrimary: #121212;
+    --bgSecondary: #1d1d1d;
+    --pink: #0071bd;
+    --light-blue: #e6f7ff;
+    --border: #d9d9d9;
+  }
 
 * {
     margin: 0;
@@ -92,7 +113,7 @@ a:hover{
 }
 
 .logo-container{
-    background-color: #001529;
+    background-color: var(--bgSecondary);
     display: flex;
     padding: 20px;
     align-items: center;
@@ -102,7 +123,7 @@ a:hover{
     margin:0 0 0 15px;
 }
 .logo a{
-   color: white;
+    color: var(--text-primary);
 }
 .menu-control-container{
     display: none !important;
@@ -368,10 +389,10 @@ width: 70%;
     display: flex;
     justify-content: space-between;
     gap: 50px;
-    color: #0071bd;
+    color: var(--pink);
 }
 .chart-title{
-    color: #0071bd !important;
+    color: var(--pink) !important;
 }
 .price-container{
     display: flex !important;
@@ -432,3 +453,9 @@ width: 70%;
     font-weight: bold;
     margin-top: 1rem;
   }
+
+  .icon-align {
+    position: relative;
+    top: 15px;
+  }
+  

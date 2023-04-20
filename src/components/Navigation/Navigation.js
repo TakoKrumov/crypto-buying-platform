@@ -10,6 +10,9 @@ import { useState, useEffect } from "react";
 import "./Navigation.scss";
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/authContext';
+import { useTheme } from '../../contexts/themeContext'
+
+
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -26,6 +29,7 @@ function useWindowSize() {
 }
 
 const Navigation = () => {
+  const { toggleTheme } = useTheme();
   const [authButtons, setAuthButtons] = useState([]);
   const { isAuthenticated, onLogout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -121,15 +125,7 @@ const Navigation = () => {
                   <Link to="/userInfo/history">History</Link>
                 </NavDropdown>
               </Nav>
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
+              <button onClick={toggleTheme}>Toggle Theme</button>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
