@@ -17,9 +17,9 @@ const Homepage = () => {
   if(isFetching) return "loading...";
 
   return (
-    <div>
+    <div >
       <Title level={2} className='heading'>Global Crypto Stats</Title>
-      <Row>
+      <Row className='light-theme'>
         <Col span={12}><Statistic title="Total Cryptocurrencies" value={globalStats.total}/></Col>
         <Col span={12}><Statistic title="Total Exchanges" value={millify(globalStats.totalExchanges)}/></Col>
         <Col span={12}><Statistic title="Total Market Cap" value={millify(globalStats.totalMarketCap)}/></Col>

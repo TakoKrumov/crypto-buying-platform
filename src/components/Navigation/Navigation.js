@@ -1,5 +1,5 @@
 import Nav from "react-bootstrap/Nav";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -30,35 +30,33 @@ const Navigation = () => {
   const { toggleTheme } = useTheme();
   const [authButtons, setAuthButtons] = useState([]);
   const { isAuthenticated, onLogout } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const loggedInButtons = (
       <>
-        <Nav.Item
+        <Nav.Item className="navigation-item"
           onClick={() => {
             onLogout();
-            navigate("/");
           }}
         >
-          <span>Logout</span>
+          <Link to="/"><span>Logout</span></Link>
         </Nav.Item>
       </>
     );
 
     const loggedOutButtons = (
       <>
-        <Nav.Item>
+        <Nav.Item className="btnLogin-popup navigation-item">
           <Link to="/login">Login</Link>
         </Nav.Item>
-        <Nav.Item>
+        <Nav.Item className="navigation-item">
           <Link to="/register">Register</Link>
         </Nav.Item>
       </>
     );
 
     setAuthButtons(isAuthenticated ? loggedInButtons : loggedOutButtons);
-  }, [isAuthenticated, onLogout, navigate]);
+  }, [isAuthenticated, onLogout]);
   const windowSize = useWindowSize();
 
   const getExpandValue = () => {
@@ -83,6 +81,56 @@ const Navigation = () => {
   const screenSize = getExpandValue();
   return (
     <>
+      {/* <header className="wholeNavBar">
+        <h2 className="logo">
+          CryptoExchange
+        </h2>
+
+
+        <Nav className="navigation">
+          <Nav.Item className="navigation-item">
+            <Link to="/">Home</Link>
+          </Nav.Item>
+          <Nav.Item className="navigation-item">
+            <Link to="/news">News</Link>
+          </Nav.Item>
+          <Nav.Item className="navigation-item">
+            <Link to="/coins">Coins</Link>
+          </Nav.Item>
+          {authButtons}
+          <NavDropdown
+          className="navigation-item"
+            title="Portfolio"
+            id={`offcanvasNavbarDropdown-expand-${screenSize}`}
+          >
+            <NavDropdown.Item
+              as={Link}
+              to="/userInfo/wallet"
+              className="cryExch-navDropdownItem"
+            >
+              Wallet
+            </NavDropdown.Item>
+
+            <NavDropdown.Item
+              as={Link}
+              to="/userInfo/planing"
+              className="cryExch-navDropdownItem"
+            >
+              Planning
+            </NavDropdown.Item>
+
+            <NavDropdown.Item
+              as={Link}
+              to="/userInfo/history"
+              className="cryExch-navDropdownItem"
+            >
+              History
+            </NavDropdown.Item>
+          </NavDropdown>
+          <button className="navigation-item btnTheme" onClick={toggleTheme}>Toggle Theme</button>
+
+        </Nav>
+      </header> */}
       <Navbar key={screenSize} expand={screenSize} className="mb-3">
         <Container fluid>
           <Navbar.Brand>Exchange Crypto</Navbar.Brand>

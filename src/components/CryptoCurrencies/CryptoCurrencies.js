@@ -19,6 +19,7 @@ const CryptoCurrencies = ({ simplified }) => {
   const apiKey = 'b00a2e01fe6393e997d1e5c7248480ba8eed7d6506e111189146cadf00eb8c45';
   const ccStreamer = new WebSocket(`wss://streamer.cryptocompare.com/v2?api_key=${apiKey}`);
   const navigate = useNavigate();
+  console.log(cryptos);
 
 
   useEffect(() => {
