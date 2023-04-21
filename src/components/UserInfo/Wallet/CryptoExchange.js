@@ -39,6 +39,11 @@ export default function ExchangeCoins() {
     const selectedCoinPrice = parseFloat(event.target.value);
     setTargetCoin({ symbol: selectedSymbol, price: selectedCoinPrice });
     setIconSecond(event.target.options[selectedIndex].dataset.icon);
+    
+    // Calculate the amount for the second input field
+    setAmountSecond(
+      (amountForExchange * selectedCoin?.price) / selectedCoinPrice
+    );
   };
 
   const handleAmountChange = (event) => {
@@ -60,17 +65,17 @@ export default function ExchangeCoins() {
       alert("Please select both coins for the exchange.");
       return;
     }
-
+  
     const user = JSON.parse(localStorage.getItem("auth"));
     const coinsInWallet = user.portfolio.wallet[0].buyCoins;
-
+  
     const targetCoinInWallet = coinsInWallet.find(
       (coin) => coin.symbol === targetCoin.symbol
     );
-
+  
     const exchangedAmount =
       (amountSecond * selectedCoin.price) / targetCoin.price;
-
+  
     if (targetCoinInWallet) {
       targetCoinInWallet.amount = (
         parseFloat(targetCoinInWallet.amount) + exchangedAmount
@@ -81,26 +86,41 @@ export default function ExchangeCoins() {
         amount: exchangedAmount.toFixed(2),
       });
     }
-
-    selectedCoin.amount = (parseFloat(0) - parseFloat(0)).toFixed(2);
-
-    if (parseFloat(selectedCoin.amount) === 0) {
-      coinsInWallet.splice(
-        coinsInWallet.findIndex((coin) => coin.symbol === selectedCoin.symbol),
-        1
-      );
+  
+    const selectedCoinIndex = coinsInWallet.findIndex(
+      (coin) => coin.symbol === selectedCoin?.symbol
+    );
+  
+    if (selectedCoinIndex >= 0) {
+      const updatedAmount = (
+        parseFloat(coinsInWallet[selectedCoinIndex].amount) - amountForExchange
+      ).toFixed(2);
+  
+      if (updatedAmount > 0) {
+        coinsInWallet[selectedCoinIndex].amount = updatedAmount;
+      } else {
+        coinsInWallet.splice(selectedCoinIndex, 1);
+      }
     }
-
+  
     localStorage.setItem("auth", JSON.stringify(user));
-
+  
     setSelectedCoin(null);
     setTargetCoin(null);
+    setAmountFirst(0);
     setAmountSecond(0);
+    setIconFirst(img);
     setIconSecond(img);
-
+    setAmountForExchange(0);
+    setUserCoins(
+      JSON.parse(localStorage.getItem("auth"))?.portfolio?.wallet[0]?.buyCoins
+    );
+  
     document.querySelector("select[name='selectedCoin']").selectedIndex = 0;
     document.querySelector("select[name='targetCoin']").selectedIndex = 0;
   };
+  
+  
 
   return (
     <>
