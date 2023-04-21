@@ -59,6 +59,7 @@ function App() {
 
   return (
     <>
+    <div className="wholeApp">
       <AuthProvider>
       <div className={theme}>
 
@@ -86,8 +87,8 @@ function App() {
             </Layout>
             <Footer />
             </div>
-
       </AuthProvider>
+      </div>
     </>
   );
 }
