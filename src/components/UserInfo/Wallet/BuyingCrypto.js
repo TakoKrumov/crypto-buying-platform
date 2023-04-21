@@ -13,8 +13,15 @@ export default function BuyingCoins() {
   const [myMoney, setMyMoney] = useState(
     JSON.parse(localStorage.getItem("auth")).portfolio.wallet[0].fundsInAccount
   );
+  
+  const [maxAmount, setMaxAmount] = useState(0);  
 
   const coinData = cryptoList?.data.coins;
+
+  useEffect(() => {
+    // Update maxAmount when selectedPrice or myMoney changes
+    setMaxAmount(parseFloat(myMoney / selectedPrice).toFixed(2));
+  }, [selectedPrice, myMoney]);
 
   const handleCurrencyChange = (event) => {
     const selectedIndex = event.target.selectedIndex;
@@ -31,10 +38,9 @@ export default function BuyingCoins() {
   // };
   const handleAmountChange = (event) => {
     let inputAmount = parseFloat(event.target.value);
-    const maxAmount = parseFloat(myMoney / selectedPrice.toFixed(2));
 
-    if (inputAmount >= maxAmount) {
-      inputAmount = maxAmount.toFixed(2);
+    if (inputAmount > maxAmount) {
+      inputAmount = maxAmount;
     }
 
     setAmount(inputAmount);
@@ -67,7 +73,7 @@ export default function BuyingCoins() {
       ).toFixed(2);
 
       // Check if the user already has the selected coin in their wallet
-      const existingCoin = user.portfolio.wallet[0].buyCoins.find(
+      const existingCoin = user?.portfolio?.wallet[0]?.buyCoins.find(
         (coin) => coin.symbol === symbol
       );
 
@@ -80,7 +86,7 @@ export default function BuyingCoins() {
         // If the coin doesn't exist, add the coin and its amount to the wallet
         user.portfolio.wallet[0].buyCoins.push({
           symbol: symbol,
-          amount: parseFloat(amount).toFixed(2),
+          amount: parseFloat(amount).toFixed(2)
         });
       }
 
@@ -136,16 +142,16 @@ export default function BuyingCoins() {
           <span>${selectedPrice.toFixed(2)} </span>
         </div>
         <div className="crpExh-container">
-          <label htmlFor="amount">Buying Quantity:</label>
-          <input
-            type="number"
-            min={0}
-            max={(myMoney / selectedPrice).toFixed(2)}
-            name="amount"
-            value={!!amount ? parseFloat(amount) : 0}
-            onChange={handleAmountChange}
-          />
-        </div>
+        <label htmlFor="amount">Buying Quantity:</label>
+        <input
+          type="number"
+          min={0}
+          max={maxAmount} // Use maxAmount as the maximum value for the input field
+          name="amount"
+          value={!!amount ? parseFloat(amount) : 0}
+          onChange={handleAmountChange}
+        />
+      </div>
         <span type="radio" name="" id="crpExh-total" /> Total: $
         {(amount * selectedPrice).toFixed(2)}
         <button onClick={handleBuyCoins} className="crpExh-btn">
