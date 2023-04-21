@@ -14,23 +14,23 @@ export default function ExchangeCoins() {
   const [iconSecond, setIconSecond] = useState(img);
   const [amountForExchange, setAmountForExchange] = useState(0);
   const [userCoins, setUserCoins] = useState(
-    JSON.parse(localStorage.getItem("auth")).portfolio.wallet[0].buyCoins
+    JSON.parse(localStorage.getItem("auth"))?.portfolio?.wallet[0]?.buyCoins
   );
-
+  
+  console.log(userCoins)
   const coinData = cryptoList?.data.coins;
 
   const handleSelectedCoinChange = (event) => {
     const selectedIndex = event.target.selectedIndex;
     const selectedSymbol = event.target.options[selectedIndex].id;
-    const temporal = userCoins.find(coin => coin?.symbol === selectedSymbol);
-    console.log(`temporal`,temporal)
-    const selectedCoinData = coinData.find(coin => coin?.symbol === temporal?.symbol)
+    const temporal = userCoins?.find((coin) => coin?.symbol === selectedSymbol);
+    console.log(`temporal`, temporal);
+    const selectedCoinData = coinData.find(
+      (coin) => coin?.symbol === temporal?.symbol
+    );
     setSelectedCoin(selectedCoinData);
-    setIconFirst(selectedCoinData.iconUrl)
-    setAmountFirst(parseFloat(temporal.amount))
-    console.log(amountFirst); 
-    console.log(temporal.amount); 
-    
+    setIconFirst(selectedCoinData.iconUrl);
+    setAmountFirst(parseFloat(temporal.amount));
   };
 
   const handleTargetCoinChange = (event) => {
@@ -39,9 +39,6 @@ export default function ExchangeCoins() {
     const selectedCoinPrice = parseFloat(event.target.value);
     setTargetCoin({ symbol: selectedSymbol, price: selectedCoinPrice });
     setIconSecond(event.target.options[selectedIndex].dataset.icon);
-    
-    console.log(targetCoin); 
-    
   };
 
   const handleAmountChange = (event) => {
@@ -52,7 +49,10 @@ export default function ExchangeCoins() {
       inputAmount = amountFirst.toFixed(2);
     }
 
-    setAmountSecond(inputAmount);
+    setAmountForExchange(inputAmount);
+    console.log(selectedCoin)
+    
+    setAmountSecond((inputAmount * selectedCoin?.price) / targetCoin?.price);
   };
 
   const handleExchangeCoins = () => {
@@ -68,7 +68,8 @@ export default function ExchangeCoins() {
       (coin) => coin.symbol === targetCoin.symbol
     );
 
-    const exchangedAmount = (amountSecond * selectedCoin.price) / targetCoin.price;
+    const exchangedAmount =
+      (amountSecond * selectedCoin.price) / targetCoin.price;
 
     if (targetCoinInWallet) {
       targetCoinInWallet.amount = (
@@ -81,9 +82,7 @@ export default function ExchangeCoins() {
       });
     }
 
-    selectedCoin.amount = (
-      parseFloat(0) - parseFloat(0)
-    ).toFixed(2);
+    selectedCoin.amount = (parseFloat(0) - parseFloat(0)).toFixed(2);
 
     if (parseFloat(selectedCoin.amount) === 0) {
       coinsInWallet.splice(
@@ -114,7 +113,7 @@ export default function ExchangeCoins() {
               <option value="" id="">
                 Select...
               </option>
-              {userCoins.map((coin, index) => (
+              {Array.isArray(userCoins) && userCoins?.map((coin, index) => (
                 <option key={index} id={coin.symbol} data-icon={coin.iconUrl}>
                   {coin.symbol}
                 </option>
@@ -128,12 +127,15 @@ export default function ExchangeCoins() {
           </span>
         </div>
         <div className="crpExh-container">
-          <label htmlFor="amount">Exchanging Amountaa:</label>
+          <label htmlFor="amount">Exchanging Amount:</label>
           <input
             type="number"
+            step={0.01}
             min={0}
-            max={parseFloat(amountFirst).toFixed(2)}         
-            name="amount"
+            max={parseFloat(amountFirst).toFixed(2)}
+            maxLength={amountFirst.length}
+            name="amount" 
+            value={amountForExchange} // use state value
             onChange={handleAmountChange}
           />
         </div>
@@ -162,17 +164,14 @@ export default function ExchangeCoins() {
             />
           </span>
         </div>
-        <div className="crpExh-container">
-          <label htmlFor="amount">Exchanging Amount:</label>
-          <input
+        <input
             type="number"
             min={0}
             max={parseFloat(amountSecond || 0).toFixed(2)}
             name="amount"
-            value={0}
-            onChange={handleAmountChange}
+            value={amountSecond.toFixed(2)}
+            readOnly
           />
-        </div>
         <button onClick={handleExchangeCoins} className="crpExh-btn">
           Exchange
         </button>
