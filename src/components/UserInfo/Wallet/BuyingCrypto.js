@@ -43,6 +43,13 @@ export default function BuyingCoins() {
       inputAmount = maxAmount;
     }
 
+    // Handle backspace, empty or zero input case
+  if (isNaN(inputAmount) || inputAmount === 0) {
+    setAmount(0);
+    return;
+  }
+
+ 
     setAmount(inputAmount);
   };
 
@@ -145,15 +152,15 @@ export default function BuyingCoins() {
         <label htmlFor="amount">Buying Quantity:</label>
         <input
           type="number"
+          step={0.01}
           min={0}
           max={maxAmount} // Use maxAmount as the maximum value for the input field
           name="amount"
-          value={!!amount ? parseFloat(amount) : 0}
+          value={!!amount ? parseFloat(amount) : ""}
           onChange={handleAmountChange}
         />
       </div>
-        <span type="radio" name="" id="crpExh-total" /> Total: $
-        {(amount * selectedPrice).toFixed(2)}
+      <span type="radio" name="" id="crpExh-total" /> Total: ${(amount && amount * selectedPrice).toFixed(2)}
         <button onClick={handleBuyCoins} className="crpExh-btn">
           Buy
         </button>

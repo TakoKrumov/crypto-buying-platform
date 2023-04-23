@@ -15,18 +15,15 @@ import History from "./components/UserInfo/History/History";
 import Planing from "./components/UserInfo/Planing/Planing";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import Footer from "./components/Footer/Footer";
-import Homepage from "./components/Homepage/Homepage"
+import Homepage from "./components/Homepage/Homepage";
 import CryptoCurrencies from "./components/CryptoCurrencies/CryptoCurrencies";
 import News from "./components/News/News";
 import CryptoDetails from "./components/CryptoDetails/CryptoDetails";
-import { useTheme } from './contexts/themeContext';
-
-
-
+import { useTheme } from "./contexts/themeContext";
 
 function AuthRoutes() {
-  const isAuth = !!localStorage.getItem("Auth")
-    ? localStorage.getItem("Auth")
+  const isAuth = !!JSON.parse(localStorage.getItem("auth")).name
+    ? JSON.parse(localStorage.getItem("auth"))
     : false;
 
   if (!isAuth) {
@@ -38,15 +35,28 @@ function AuthRoutes() {
     );
   }
 
-  return <><Route path={"/logout"} element={<div>dassdadasa</div>}>Logout</Route></>
+  return (
+    <>
+      <Route path={"/logout"} element={<div>Logout</div>}>
+        Logout
+      </Route>
+    </>
+  );
 }
-
 
 function App() {
   const [symbols, setSymbols] = useState([]);
   const { theme } = useTheme();
 
+  const [isAuth, setIsAuth] = useState("");
 
+  useEffect(() => {
+    setIsAuth(
+      !!JSON.parse(localStorage.getItem("auth")).name
+        ? JSON.parse(localStorage.getItem("auth"))
+        : false
+    );
+  }, []);
 
   useEffect(() => {
     const getSymbols = async () => {
@@ -59,35 +69,32 @@ function App() {
 
   return (
     <>
-    <div className="wholeApp">
-      <AuthProvider>
-      <div className={theme}>
-
+      <div className="wholeApp">
+        <AuthProvider>
+          <div className={theme}>
             <Navigation />
             <Layout>
               <div className="routes">
                 <Routes>
-
                   <Route path="/" element={<Homepage />} />
-                  
-                  <Route exact path="/coins" element={<CryptoCurrencies />} />
+
+                  <Route path="/coins" element={<CryptoCurrencies />} />
                   <Route path="/coins/:coinId" element={<CryptoDetails />} />
                   <Route path={"/news"} element={<News />}></Route>
 
                   {AuthRoutes()}
-                  <Route exact path="/userInfo">
-                    <Route path={"wallet"} element={<Wallet />}></Route>
-                    <Route path={"planing"} element={<Planing />}></Route>
-                    <Route path={"history"} element={<History />}></Route>
-                  </Route>
-
+                    <Route path="/userInfo">
+                      <Route path={"wallet"} element={<Wallet />}></Route>
+                      <Route path={"planing"} element={<Planing />}></Route>
+                      <Route path={"history"} element={<History />}></Route>
+                    </Route>
                   <Route path={"*"} element={<div>NOT FOUND BRAT</div>}></Route>
                 </Routes>
               </div>
             </Layout>
             <Footer />
-            </div>
-      </AuthProvider>
+          </div>
+        </AuthProvider>
       </div>
     </>
   );
