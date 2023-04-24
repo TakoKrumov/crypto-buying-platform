@@ -6,15 +6,16 @@ import ExchangeCrypto from "./CryptoExchange"
 import { useGetCryptosQuery } from "../../../services/cryptoApi";
 import { Link } from "react-router-dom";
 
-function WalletInfo() {
-
+const Wallet = () => {
+  
   const [account, setAccount] = useState(JSON.parse(localStorage.getItem("auth")))
   const [userCoins, setUserCoins] = useState(
     JSON.parse(localStorage.getItem("auth"))?.portfolio?.wallet[0]?.buyCoins
   );
+  const [icon, setIcon] = useState();
   const count = 100;
   const { data: cryptoList } = useGetCryptosQuery(count);
-  const isAuth = !!JSON.parse(localStorage.getItem("auth")).email
+  const isAuth = !!JSON.parse(localStorage.getItem("auth"))?.email
     ? JSON.parse(localStorage.getItem("auth"))
     : false;
 
@@ -42,14 +43,6 @@ function WalletInfo() {
       </div>
       </>
   );
-}
-
-
-
-const Wallet = () => {
-  
-  
-  return WalletInfo();
 };
 
 export default Wallet;

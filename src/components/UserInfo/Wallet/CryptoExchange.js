@@ -55,7 +55,7 @@ export default function ExchangeCoins() {
     }
 
     setAmountForExchange(inputAmount);
-    console.log(selectedCoin)
+
     
     setAmountSecond((inputAmount * selectedCoin?.price) / targetCoin?.price);
   };

@@ -22,7 +22,7 @@ import CryptoDetails from "./components/CryptoDetails/CryptoDetails";
 import { useTheme } from "./contexts/themeContext";
 
 function AuthRoutes() {
-  const isAuth = !!JSON.parse(localStorage.getItem("auth")).name
+  const isAuth = !!JSON.parse(localStorage.getItem("auth"))?.email
     ? JSON.parse(localStorage.getItem("auth"))
     : false;
 
@@ -52,7 +52,7 @@ function App() {
 
   useEffect(() => {
     setIsAuth(
-      !!JSON.parse(localStorage.getItem("auth")).name
+      !!JSON.parse(localStorage.getItem("auth"))?.email
         ? JSON.parse(localStorage.getItem("auth"))
         : false
     );
