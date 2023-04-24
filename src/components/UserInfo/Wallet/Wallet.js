@@ -14,19 +14,27 @@ const Wallet = () => {
   const [userFunds, setUserFunds] = useState(
     account?.portfolio?.wallet[0]?.fundsInAccount
   );
+
+  useEffect(() => {
+    const temporal = userFunds;
+    if (temporal !== userFunds) {
+      setUserFunds(userFunds);
+    }
+  }, [userFunds]);
+
   const [userCoins, setUserCoins] = useState(
     JSON.parse(
       localStorage.getItem("auth")
     )?.portfolio?.wallet[0]?.buyCoins.map((element) => element)
   );
-  const [icon, setIcon] = useState([]);
+
   const [userCoinsWithIcons, setUserCoinsWithIcons] = useState([]);
   const count = 100;
   const { data: cryptoList } = useGetCryptosQuery(count);
-  
+
   useEffect(() => {
     if (cryptoList?.data) {
-      const currentCoinsWithIcons = userCoins.map((myCoin) => {
+      const currentCoinsWithIcons = userCoins?.map((myCoin) => {
         const matchedCoin = cryptoList.data.coins.find(
           (coin) => myCoin.symbol === coin.symbol
         );
@@ -35,8 +43,7 @@ const Wallet = () => {
       setUserCoinsWithIcons(currentCoinsWithIcons);
     }
   }, [cryptoList, userCoins]);
-  
-  console.log(userCoinsWithIcons)
+
   const isAuth = !!JSON.parse(localStorage.getItem("auth"))?.email
     ? JSON.parse(localStorage.getItem("auth"))
     : false;
@@ -52,26 +59,65 @@ const Wallet = () => {
     );
   }
 
+  const onFundsChange = (newFunds) => {
+    setUserFunds(newFunds);
+  };
+
+  const onCoinsChange = (newCoins) => {
+    setUserCoins(newCoins);
+  };
+
   return (
     <div className="userPage">
       <div className="walletInfo">
         <h3>Crypto Wallet</h3>
-        <span>Money in wallet:{userFunds}</span>
-        <div>
-          Coins:
+        <span>Money in wallet: ${userFunds}</span>
+        <div className="userCoins">
+          My Coins:
           {Array.isArray(userCoins) &&
             userCoins?.map((coin, index) => (
-              <div key={coin.uuid} id={coin.symbol} data-icon={coin.iconUrl}>
+              <span
+                key={index}
+                id={coin.symbol}
+                data-icon={coin.iconUrl}
+                className="userCoinChildren"
+              >
                 {coin.symbol} : {coin.amount} :{" "}
-                <img src={userCoinsWithIcons[index]?.iconUrl} alt="" width="25" height="25" />
-              </div>
+                <img
+                  src={userCoinsWithIcons[index]?.iconUrl}
+                  alt=""
+                  width="25"
+                  height="25"
+                />
+              </span>
             ))}
         </div>
       </div>
       <div className="wallet">
-        <BuyingCoins />;
-        <ExchangeCrypto />
-        <AddingFunds />;
+        <BuyingCoins
+          account={account}
+          setAccount={setAccount}
+          userFunds={userFunds}
+          setUserFunds={setUserFunds}
+          userCoins={userCoins}
+          setUserCoins={setUserCoins}
+          onFundsChange={onFundsChange}
+          onCoinsChange={onCoinsChange}
+        />
+        <ExchangeCrypto
+          account={account}
+          setAccount={setAccount}
+          userFunds={userFunds}
+          setUserFunds={setUserFunds}
+          userCoins={userCoins}
+          setUserCoins={setUserCoins}
+        />
+        <AddingFunds
+          account={account}
+          setAccount={setAccount}
+          userFunds={userFunds}
+          setUserFunds={setUserFunds}
+        />
       </div>
     </div>
   );

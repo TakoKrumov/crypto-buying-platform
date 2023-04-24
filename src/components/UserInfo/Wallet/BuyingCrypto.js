@@ -1,27 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Wallet.scss";
-import img from "./spinner.gif";
+import img from "./fi-cnsuxl-question-mark.svg";
 import { useGetCryptosQuery } from "../../../services/cryptoApi";
 
-export default function BuyingCoins() {
+export default function BuyingCoins({
+  account,
+  setAccount,
+  userFunds,
+  setUserFunds,
+  userCoins,
+  setUserCoins,
+}) {
   const count = 100;
   const { data: cryptoList } = useGetCryptosQuery(count);
   const [symbol, setSymbol] = useState("");
   const [amount, setAmount] = useState(0);
   const [icon, setIcon] = useState(img);
   const [selectedPrice, setSelectedPrice] = useState(0);
-  const [myMoney, setMyMoney] = useState(
-    JSON.parse(localStorage.getItem("auth")).portfolio.wallet[0].fundsInAccount
-  );
-  
-  const [maxAmount, setMaxAmount] = useState(0);  
+
+
+  const [maxAmount, setMaxAmount] = useState(0);
 
   const coinData = cryptoList?.data.coins;
 
   useEffect(() => {
     // Update maxAmount when selectedPrice or myMoney changes
-    setMaxAmount(parseFloat(myMoney / selectedPrice).toFixed(2));
-  }, [selectedPrice, myMoney]);
+    setMaxAmount(parseFloat(userFunds / selectedPrice).toFixed(2));
+  }, [selectedPrice, userFunds]);
 
   const handleCurrencyChange = (event) => {
     const selectedIndex = event.target.selectedIndex;
@@ -44,12 +49,11 @@ export default function BuyingCoins() {
     }
 
     // Handle backspace, empty or zero input case
-  if (isNaN(inputAmount) || inputAmount === 0) {
-    setAmount(0);
-    return;
-  }
+    if (isNaN(inputAmount) || inputAmount === 0) {
+      setAmount(0);
+      return;
+    }
 
- 
     setAmount(inputAmount);
   };
 
@@ -93,7 +97,7 @@ export default function BuyingCoins() {
         // If the coin doesn't exist, add the coin and its amount to the wallet
         user.portfolio.wallet[0].buyCoins.push({
           symbol: symbol,
-          amount: parseFloat(amount).toFixed(2)
+          amount: parseFloat(amount).toFixed(2),
         });
       }
 
@@ -105,7 +109,9 @@ export default function BuyingCoins() {
       setAmount(0);
       setSelectedPrice(0);
       setIcon(img);
-
+      setUserFunds(JSON.parse(
+        localStorage.getItem("auth")
+      )?.portfolio?.wallet[0]?.fundsInAccount)
       // Reset the select form
       document.querySelector("select[name='currency']").selectedIndex = 0;
     } else {
@@ -118,7 +124,6 @@ export default function BuyingCoins() {
     <>
       <h3>Buying coins</h3>
       <div className="wallet-buyingCrypto">
-        
         <div className="crpExh-container">
           <label htmlFor="currency">Currency:</label>
           <span>
@@ -149,23 +154,23 @@ export default function BuyingCoins() {
           <span>${selectedPrice.toFixed(2)} </span>
         </div>
         <div className="crpExh-container">
-        <label htmlFor="amount">Buying Quantity:</label>
-        <input
-          type="number"
-          step={0.01}
-          min={0}
-          max={maxAmount} // Use maxAmount as the maximum value for the input field
-          name="amount"
-          value={!!amount ? parseFloat(amount) : ""}
-          onChange={handleAmountChange}
-        />
-      </div>
-      <span type="radio" name="" id="crpExh-total" /> Total: ${(amount && amount * selectedPrice).toFixed(2)}
+          <label htmlFor="amount">Buying Quantity:</label>
+          <input
+            type="number"
+            step={0.01}
+            min={0}
+            max={maxAmount} // Use maxAmount as the maximum value for the input field
+            name="amount"
+            value={!!amount ? parseFloat(amount) : ""}
+            onChange={handleAmountChange}
+          />
+        </div>
+        <span type="radio" name="" id="crpExh-total" /> Total: $
+        {(amount && amount * selectedPrice).toFixed(2)}
         <button onClick={handleBuyCoins} className="crpExh-btn">
           Buy
         </button>
       </div>
-      </> 
-      
+    </>
   );
 }
