@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,useLocation,useRoutes } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import { Layout } from "antd";
 import Login from "./components/Login/Login";
@@ -16,6 +16,8 @@ import News from "./components/News/News";
 import CryptoDetails from "./components/CryptoDetails/CryptoDetails";
 import { useTheme } from "./contexts/themeContext";
 import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
+import PageNotFound from "./components/404/PageNotFound";
+
 
 function AuthRoutes() {
   const isAuth = !!JSON.parse(localStorage.getItem("auth"))?.email
@@ -45,8 +47,19 @@ function AuthRoutes() {
 function App() {
   const [symbols, setSymbols] = useState([]);
   const { theme } = useTheme();
-
   const [isAuth, setIsAuth] = useState("");
+
+  function ShouldRenderHeaderFooter() {
+    const location = useLocation();
+    const match = useRoutes([
+      {
+        path: "*",
+        element: <PageNotFound />,
+      },
+    ]);
+  
+    return !match;
+  }
 
   useEffect(() => {
     setIsAuth(
@@ -61,7 +74,7 @@ function App() {
       <div className="wholeApp">
         <AuthProvider>
           <div className={theme}>
-            <Navigation />
+          {ShouldRenderHeaderFooter() && <Navigation />}
             <Layout>
               <div className="routes">
                 <Routes>
@@ -76,11 +89,12 @@ function App() {
                     <Route path="history" element={<History />} />
                   </Route>
                   {AuthRoutes()}
-                  <Route path={"*"} element={<div>NOT FOUND BRAT</div>}></Route>
+                  <Route path={"*"} element={<PageNotFound/>}></Route>
                 </Routes>
               </div>
             </Layout>
-            <Footer />
+            {ShouldRenderHeaderFooter() && <Footer />}
+
           </div>
         </AuthProvider>
       </div>
