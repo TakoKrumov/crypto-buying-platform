@@ -16,15 +16,14 @@ const CryptoCurrencies = ({ simplified }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [localPrices, setLocalPrices] = useState({}); // Local state to store prices
 
-  const apiKey = 'b00a2e01fe6393e997d1e5c7248480ba8eed7d6506e111189146cadf00eb8c45';
+  const apiKey = '946edf48f7cf6bb17cb39beadf4f04fd0b73e22b4b7061ca7c14eb33b47de779';
   const ccStreamer = new WebSocket(`wss://streamer.cryptocompare.com/v2?api_key=${apiKey}`);
   const navigate = useNavigate();
-  console.log(cryptos);
 
 
   useEffect(() => {
     ccStreamer.onopen = function onStreamOpen() {
-      let subs = cryptoList?.data.coins.slice(0, 9).map((coin) => `2~Coinbase~${coin.symbol}~USD`);
+      let subs = cryptoList?.data.coins.slice(0, 1).map((coin) => `2~Coinbase~${coin.symbol}~USD`);
       var subRequest = {
         action: 'SubAdd',
         subs: subs,
@@ -34,7 +33,7 @@ const CryptoCurrencies = ({ simplified }) => {
 
     ccStreamer.onmessage = function onStreamMessage(event) {
       var message = event.data;
-
+      console.log(message);
       const parsedMessage = JSON.parse(message);
       if (parsedMessage.TYPE === "2") {
         const symbol = parsedMessage.FROMSYMBOL;

@@ -4,14 +4,15 @@ import { fetchKlines } from '../../services/klineApi';
 
 const KlineHistogram = ({ symbol, interval }) => {
   const [klines, setKlines] = useState([]);
-  const binanceSocket = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@kline_${interval}`);
 
   useEffect(() => {
-    fetchKlines(symbol, interval, 500).then(setKlines);
+    fetchKlines(symbol, interval, 100).then(setKlines);
   }, [symbol, interval]);
   
 
   useEffect(() => {
+    const binanceSocket = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@kline_${interval}`);
+
     binanceSocket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       const kline = message.k;
@@ -20,7 +21,7 @@ const KlineHistogram = ({ symbol, interval }) => {
     return () => {
       binanceSocket.close();
     };
-  }, [symbol, interval]);
+  }, []);
 
 
   const options = {

@@ -3,28 +3,34 @@ import { useNavigate } from 'react-router-dom';
 
 import * as authService from "../services/authService";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({
-  children,
-}) => {
+export const AuthProvider = ({ children }) => {
 
   const [auth, setAuth] = useLocalStorage('auth', {});
   const [error, setError] = useState();
+  const [success, setSuccess] = useState();
   const navigate = useNavigate();
 
   const onLoginSubmit = async (data) => {
-
+    const { email, password, rememberMe } = data;
     try {
-      const result = await authService.login(data);
-
+      const result = await authService.login({ email, password });
       setAuth(result);
-
-      navigate('/');
+  
+      if (rememberMe) {
+        localStorage.setItem('rememberAuth', JSON.stringify(result));
+      } else {
+        localStorage.removeItem('rememberAuth');
+      }
+  
+      setError(null); // Clear the error state
+      setSuccess('Login successful!');
+      navigate('/'); // Navigate immediately
     } catch (error) {
       const result = await Object.values(error)[1];
-
       setError(result);
     }
   };
@@ -43,31 +49,26 @@ export const AuthProvider = ({
 
     try {
       const result = await authService.register(registerData);
-
+      setError(null); // Clear the error state
+      setSuccess('Registration successful!');
       navigate('/login');
-      form.reset()
+      form.reset();
     } catch (error) {
       const result = await Object.values(error)[1];
-
       setError(result);
     }
   };
 
   const onLogout = async () => {
-
     await authService.logout();
-
-    localStorage.clear();
-
+    localStorage.removeItem('auth');
     setAuth({});
+    toast.success("You have been logged out");
+    navigate('/login');
   };
 
   const setAuthError = (errorMessage) => {
     setError(errorMessage);
-
-    setTimeout(() => {
-      setError(null);
-    }, 2000);
   };
 
   const contextValues = {
@@ -81,6 +82,8 @@ export const AuthProvider = ({
     email: auth.email,
     error,
     isError: !!error,
+    success,
+    isSuccess: !!success,
     isAuthenticated: !!auth.accessToken,
   };
 

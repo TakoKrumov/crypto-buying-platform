@@ -25,9 +25,9 @@ const CryptoDetails = () => {
   const cryptoDetails = data?.data?.coin;
   const symbol = cryptoDetails?.symbol + "USDT";
   const [klines, setKlines] = useState([])
-  
   useEffect(() => {
-    fetchKlines(symbol, "1h", 500).then(setKlines);
+    fetchKlines(symbol, "1h", 100).then(setKlines);
+    console.log(klines);  
   }, [symbol]);
 
   if (isFetching) return "Loading";

@@ -10,7 +10,7 @@ import store from './app/store';
 import storeGlobalCoins from './app/storeGlobalCoins';
 import { ThemeProvider } from './contexts/themeContext';
 import './App.css';
-
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,4 +23,5 @@ root.render(
       </BrowserRouter>
     </ThemeProvider>
   </Provider>,
+  
 );
