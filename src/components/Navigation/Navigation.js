@@ -97,7 +97,7 @@ const Navigation = () => {
                       onLogout();
                     }}
                   >
-                    <Link to="/">Logout</Link>
+                    <span as={Link} to="/">Logout</span>
                   </Nav.Item>
                 ) : (
                   <>
