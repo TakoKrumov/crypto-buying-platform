@@ -17,7 +17,6 @@ export default function ExchangeCoins() {
     JSON.parse(localStorage.getItem("auth"))?.portfolio?.wallet[0]?.buyCoins
   );
   
-  console.log(userCoins)
   const coinData = cryptoList?.data.coins;
 
   const handleSelectedCoinChange = (event) => {
