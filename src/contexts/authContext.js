@@ -18,14 +18,7 @@ export const AuthProvider = ({ children }) => {
     const { email, password, rememberMe } = data;
     try {
       const result = await authService.login({ email, password });
-      setAuth(result);
-  
-      if (rememberMe) {
-        localStorage.setItem('rememberAuth', JSON.stringify(result));
-      } else {
-        localStorage.removeItem('rememberAuth');
-      }
-  
+      setAuth(result);  
       setError(null); // Clear the error state
       setSuccess('Login successful!');
       navigate('/'); // Navigate immediately
