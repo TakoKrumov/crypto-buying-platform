@@ -63,7 +63,7 @@ const Wallet = () => {
             userCoins?.map((coin, index) => (
               <div key={coin.uuid} id={coin.symbol} data-icon={coin.iconUrl}>
                 {coin.symbol} : {coin.amount} :{" "}
-                <img src={userCoinsWithIcons[index].iconUrl} alt="" width="25" height="25" />
+                <img src={userCoinsWithIcons[index]?.iconUrl} alt="" width="25" height="25" />
               </div>
             ))}
         </div>
