@@ -22,7 +22,7 @@ const Register = () => {
       { name: "", userEmail: email, userPassword: password, userAvatar: "" },
     ],
     history: [{}],
-    wallet: [{ fundsInAccount: Math.floor(Math.random() * 100000), buyCoins: {}, sellCoins: {} }],
+    wallet: [{ fundsInAccount: Math.floor(Math.random() * 100000), buyCoins: [], sellCoins: [] }],
   };
 
   const checkPassword = (password) => {
