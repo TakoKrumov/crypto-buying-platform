@@ -1,0 +1,103 @@
+.not-found-body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2c3e50 0%, #4b6cb7 74%);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+
+}
+
+.content-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.not-found-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 400px;
+}
+
+.astronaut {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  background: url('./astronaut.png.png') no-repeat center;
+  background-size: contain;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-20px);
+  }
+}
+
+h1 {
+  font-size: 3rem;
+  color: #fff;
+  margin: 20px 0;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.home-link {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: none;
+  border: 2px solid #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.home-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ufo {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: url('ufo.png.png') no-repeat center;
+  background-size: contain;
+  top: 30%;
+  left: 0;
+  animation: flyAcross 10s linear infinite, wobble 0.15s linear infinite;
+  cursor: pointer;
+}
+
+@keyframes flyAcross {
+  0% {
+      left: -100px;
+  }
+  100% {
+      left: 100%;
+  }
+}
+
+@keyframes wobble {
+  0%, 100% {
+      transform: rotate(-5deg);
+  }
+  50% {
+      transform: rotate(5deg);
+  }
+}
+
+.ufo:hover {
+  filter: brightness(1.2);
+}
