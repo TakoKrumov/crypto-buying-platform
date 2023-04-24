@@ -89,6 +89,7 @@ const Navigation = () => {
                 <Nav.Item className="navigation-item">
                   <NavLink to="/coins" activeClassName="active-link">Coins</NavLink>
                 </Nav.Item>
+
                 {isAuthenticated ? (
                   <Nav.Item
                     className="navigation-item"

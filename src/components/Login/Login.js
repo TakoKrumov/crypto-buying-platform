@@ -7,28 +7,27 @@ import { AuthContext } from '../../contexts/authContext';
 import './Login.scss';
 
 const Login = () => {
-  const { onLoginSubmit, error, success } = useContext(AuthContext);
+  const { onLoginSubmit, error, success, clearSuccess } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
- useEffect(() => {
-  if (error) {
-    toast.error(error);
-  }
-  if (success) {
-    toast.success(success);
-  }
-}, [error, success]);
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+    if (success) {
+      toast.success(success);
+      clearSuccess();
+    }
+  }, [error, success, clearSuccess]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       toast.error('Please fill in both email and password fields.');
-    }else{
+    } else {
       await onLoginSubmit({ email, password });
-      
     }
-   
   };
 
   return (
@@ -41,12 +40,12 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               <div className='input-box'>
                 <span className='icon'><ion-icon name="mail-outline"></ion-icon></span>
-                <input type='email' required value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                <input type='email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
                 <label>Email</label>
               </div>
               <div className='input-box'>
                 <span className='icon'><ion-icon name="lock-closed-outline"></ion-icon></span>
-                <input type='password' required value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                <input type='password' value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 <label>Password</label>
               </div>
               <div className='remember-forgot'>

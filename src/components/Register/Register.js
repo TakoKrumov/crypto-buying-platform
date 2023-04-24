@@ -72,7 +72,7 @@ const Register = () => {
             <h2>Register</h2>
             <form method="POST" onSubmit={handleSubmit}>
               <div className='input-box'>
-                <span className='icon'><ion-icon name="mail-outline"></ion-icon></span>
+                <span className='icon'><ion-icon name="person-outline"></ion-icon></span>
                 <input type='text' value={username} onChange={(e) => setUsername(e.target.value)}></input>
                 <label>Username</label>
               </div>

@@ -14,14 +14,19 @@ export const AuthProvider = ({ children }) => {
   const [success, setSuccess] = useState();
   const navigate = useNavigate();
 
+  const clearSuccess = () => {
+    setSuccess(null);
+  };
+
   const onLoginSubmit = async (data) => {
     const { email, password, rememberMe } = data;
     try {
       const result = await authService.login({ email, password });
-      setAuth(result);  
+      setAuth(result);
       setError(null); // Clear the error state
       setSuccess('Login successful!');
       navigate('/'); // Navigate immediately
+      return 'Login successful!';
     } catch (error) {
       const result = await Object.values(error)[1];
       setError(result);
@@ -69,6 +74,7 @@ export const AuthProvider = ({ children }) => {
     onRegisterSubmit,
     onLogout,
     setAuthError,
+    clearSuccess,
     userId: auth?._id,
     token: auth?.accessToken,
     userName: auth?.userName,
