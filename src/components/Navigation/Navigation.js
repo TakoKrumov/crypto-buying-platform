@@ -1,5 +1,5 @@
 import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -27,10 +27,16 @@ function useWindowSize() {
 }
 
 const Navigation = () => {
-  const { toggleTheme } = useTheme();
-  const [authButtons, setAuthButtons] = useState([]);
+  const { theme, toggleTheme } = useTheme();
   const { isAuthenticated, onLogout } = useContext(AuthContext);
 
+  const renderThemeIcon = () => {
+    return theme === 'light-theme' ? (
+      <ion-icon name="sunny-outline"></ion-icon>
+    ) : (
+      <ion-icon name="moon-outline"></ion-icon>
+    );
+  };
 
   const windowSize = useWindowSize();
 
@@ -58,7 +64,7 @@ const Navigation = () => {
     <>
       <Navbar key={screenSize} expand={screenSize} className="mb-3">
         <Container fluid>
-          <Navbar.Brand>Exchange Crypto</Navbar.Brand>
+          <Navbar.Brand className="website-name">Exchange Crypto</Navbar.Brand>
           <Navbar.Toggle
             aria-controls={`offcanvasNavbar-expand-${screenSize}`}
           />
@@ -74,16 +80,15 @@ const Navigation = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3 cryExch-nav-center">
-                <Nav.Item>
-                  <Link to="/">Home</Link>
+                <Nav.Item className="navigation-item">
+                  <NavLink to="/" exact activeClassName="active-link">Home</NavLink>
                 </Nav.Item>
-                <Nav.Item>
-                  <Link to="/news">News</Link>
+                <Nav.Item className="navigation-item">
+                  <NavLink to="/news" activeClassName="active-link">News</NavLink>
                 </Nav.Item>
-                <Nav.Item>
-                  <Link to="/coins">Coins</Link>
+                <Nav.Item className="navigation-item">
+                  <NavLink to="/coins" activeClassName="active-link">Coins</NavLink>
                 </Nav.Item>
-
                 {isAuthenticated ? (
                   <Nav.Item
                     className="navigation-item"
@@ -96,14 +101,15 @@ const Navigation = () => {
                 ) : (
                   <>
                     <Nav.Item className="btnLogin-popup navigation-item">
-                      <Link to="/login">Login</Link>
+                      <NavLink to="/login" activeClassName="active-link">Login</NavLink>
                     </Nav.Item>
                     <Nav.Item className="navigation-item">
-                      <Link to="/register">Register</Link>
+                      <NavLink to="/register" activeClassName="active-link">Register</NavLink>
                     </Nav.Item>
                   </>
                 )}
-                <NavDropdown
+                <NavDropdown className="navigation-item"
+
                   title="Portfolio"
                   id={`offcanvasNavbarDropdown-expand-${screenSize}`}
                 >
@@ -132,7 +138,7 @@ const Navigation = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-              <button onClick={toggleTheme}>Toggle Theme</button>
+              <button className="btnTheme" onClick={toggleTheme}>{renderThemeIcon()}</button>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>

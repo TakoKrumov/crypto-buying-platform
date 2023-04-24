@@ -35,7 +35,7 @@ const News = ({ simplified }) => {
       {
         cryptoNews.value.map((news, i) => (
           <Col xs={24} sm={12} lg={6} key={i}>
-            <Card hoverable="true" className='news-card'>
+            <Card hoverable="true" className='news-card cardAntd'>
               <a href={news.url} target='_blank' rel="noreferrer">
                 <div className='news-image-container'>
                   <Title className='news-title' level={4} >{news.name}</Title>
@@ -49,7 +49,7 @@ const News = ({ simplified }) => {
                   <Text className='provider-name'>{news.provider[0]?.name}</Text>
 
                 </div>
-                <Text>{moment(news.datePublished).startOf('ss').fromNow()}</Text>
+                <Text className='lastSpan'>{moment(news.datePublished).startOf('ss').fromNow()}</Text>
 
               </a>
             </Card>

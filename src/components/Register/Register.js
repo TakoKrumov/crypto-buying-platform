@@ -9,17 +9,18 @@ import { AuthContext } from "../../contexts/authContext";
 import "./Register.scss";
 
 const Register = () => {
-  const { onRegisterSubmit, error, setAuthError } = useContext(AuthContext);
+  const { onRegisterSubmit } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
-  const navigate = useNavigate();
 
   const portfolio = {
     userInfo: [
-      { name: "", userEmail: email, userPassword: password, userAvatar: "" },
+      { name: username, userEmail: email, userPassword: password, userAvatar: "" },
     ],
     history: [{}],
     wallet: [{ fundsInAccount: Math.floor(Math.random() * 100000), buyCoins: [], sellCoins: [] }],
@@ -46,8 +47,11 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!email || !password || !confirmPassword) {
+    if (!termsAccepted) {
+      toast.error("Please accept the terms and conditions.");
+      return;
+    }
+    if (!username || !email || !password || !confirmPassword) {
       toast.error("Please fill in all the fields.");
     } else if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
@@ -56,8 +60,8 @@ const Register = () => {
     } else {
       toast.error("Password is too short or doesn't go by the rules");
     }
-  };
 
+  };
 
   return (
     <>
@@ -69,28 +73,40 @@ const Register = () => {
             <form method="POST" onSubmit={handleSubmit}>
               <div className='input-box'>
                 <span className='icon'><ion-icon name="mail-outline"></ion-icon></span>
-                <input type='text' required value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                <input type='text' value={username} onChange={(e) => setUsername(e.target.value)}></input>
                 <label>Username</label>
               </div>
               <div className='input-box'>
                 <span className='icon'><ion-icon name="mail-outline"></ion-icon></span>
-                <input type='email' required value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                <input type='email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
                 <label>Email</label>
               </div>
               <div className='input-box'>
                 <span className='icon'><ion-icon name="lock-closed-outline"></ion-icon></span>
-                <input type='password' required value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                <input type='password' value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 <label>Password</label>
               </div>
               <div className='input-box'>
                 <span className='icon'><ion-icon name="lock-closed-outline"></ion-icon></span>
-                <input type='password' required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
+                <input type='password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
                 <label>Confirm Password</label>
               </div>
-              <div className='remember-forgot'>
-                <label><input type='checkbox'></input>I agree to the terms and conditions</label>
+              <div className="remember-forgot">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={termsAccepted}
+                    onChange={(e) => setTermsAccepted(e.target.checked)}
+                  ></input>
+                  I agree to the terms and conditions
+                </label>
               </div>
-              <button type='submit' className='btnLogin'>Register</button>
+              <button
+                type="submit"
+                className="btnLogin"
+              >
+                Register
+              </button>
               <div className='login-register'>
                 <Link to="/login" className='register-link'>Already have an account? Login</Link>
               </div>
