@@ -11,6 +11,7 @@ import "./Navigation.scss";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/authContext";
 import { useTheme } from "../../contexts/themeContext";
+import { toast } from 'react-toastify';
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -81,7 +82,7 @@ const Navigation = () => {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3 cryExch-nav-center">
                 <Nav.Item className="navigation-item">
-                  <NavLink to="/" exact activeClassName="active-link">Home</NavLink>
+                  <NavLink to="/" activeClassName="active-link">Home</NavLink>
                 </Nav.Item>
                 <Nav.Item className="navigation-item">
                   <NavLink to="/news" activeClassName="active-link">News</NavLink>
@@ -94,10 +95,12 @@ const Navigation = () => {
                   <Nav.Item
                     className="navigation-item"
                     onClick={() => {
+
                       onLogout();
+                      toast.success("You have been logged out");
                     }}
                   >
-                    <span as={Link} to="/">Logout</span>
+                    Logout
                   </Nav.Item>
                 ) : (
                   <>

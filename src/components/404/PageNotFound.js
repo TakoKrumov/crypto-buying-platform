@@ -37,7 +37,7 @@ const PageNotFound = () => {
 
   return (
     <div className='content-wrapper'>
-      <div className='not-found-body'>
+      <div className='not-found-body main-content'>
         <div class="stars"></div>
         <div class="not-found-container">
           <div className="astronaut" onClick={handleAstronautClick}></div>
