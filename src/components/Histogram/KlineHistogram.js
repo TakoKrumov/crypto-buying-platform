@@ -4,9 +4,11 @@ import { fetchKlines } from '../../services/klineApi';
 
 const KlineHistogram = ({ symbol, interval }) => {
   const [klines, setKlines] = useState([]);
+  const [limit, setLimit] = useState(100);
+
 
   useEffect(() => {
-    fetchKlines(symbol, interval, 100).then(setKlines);
+    fetchKlines(symbol, interval, limit).then(setKlines);
   }, [symbol, interval]);
   
 
@@ -104,6 +106,8 @@ const KlineHistogram = ({ symbol, interval }) => {
   };
 
   return (
+
+    
     <Chart options={options} series={[{ name: 'test', data: klines }]} type="candlestick" height={450} />
   );
 };
