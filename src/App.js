@@ -49,18 +49,6 @@ function App() {
   const { theme } = useTheme();
   const [isAuth, setIsAuth] = useState("");
 
-  function ShouldRenderHeaderFooter() {
-    const location = useLocation();
-    const match = useRoutes([
-      {
-        path: "*",
-        element: <PageNotFound />,
-      },
-    ]);
-  
-    return !match;
-  }
-
   useEffect(() => {
     setIsAuth(
       !!JSON.parse(localStorage.getItem("auth"))?.email
@@ -74,7 +62,7 @@ function App() {
       <div className="wholeApp">
         <AuthProvider>
           <div className={theme}>
-          {ShouldRenderHeaderFooter() && <Navigation />}
+           <Navigation />
             <Layout>
               <div className="routes">
                 <Routes>
@@ -93,9 +81,8 @@ function App() {
                 </Routes>
               </div>
             </Layout>
-            {ShouldRenderHeaderFooter() && <Footer />}
-
           </div>
+          <Footer />
         </AuthProvider>
       </div>
     </>

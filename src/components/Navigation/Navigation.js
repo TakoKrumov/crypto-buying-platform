@@ -62,7 +62,7 @@ const Navigation = () => {
   const screenSize = getExpandValue();
   return (
     <>
-      <Navbar key={screenSize} expand={screenSize} className="mb-3">
+      <Navbar key={screenSize} expand={screenSize} className="mb-3 header">
         <Container fluid>
           <Navbar.Brand className="website-name">Exchange Crypto</Navbar.Brand>
           <Navbar.Toggle
