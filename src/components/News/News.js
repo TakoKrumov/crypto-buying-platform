@@ -4,7 +4,6 @@ import moment from 'moment';
 import { useGetCryptoNewsQuery } from '../../services/cryptoNewsApi';
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 
-import { filterOption } from 'rc-mentions/lib/util';
 
 const { Text, Title } = Typography;
 const { Option } = Select;

@@ -27,11 +27,9 @@ const CryptoDetails = () => {
   const [klines, setKlines] = useState([])
   useEffect(() => {
     fetchKlines(symbol, "1h", 100).then(setKlines);
-    console.log(klines);  
   }, [symbol]);
 
   if (isFetching) return "Loading";
-  console.log("Here: ",coinHistory);
 
   const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
 

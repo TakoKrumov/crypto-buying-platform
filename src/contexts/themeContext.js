@@ -13,7 +13,6 @@ export const useTheme = () => {
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light-theme');
 
-  // Define the CSS class names that correspond to the light and dark themes
   const themes = {
     light: 'light-theme',
     dark: 'dark-theme',

@@ -23,9 +23,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const result = await authService.login({ email, password });
       setAuth(result);
-      setError(null); // Clear the error state
+      setError(null);
       setSuccess('Login successful!');
-      navigate('/'); // Navigate immediately
+      navigate('/'); 
       return 'Login successful!';
     } catch (error) {
       const result = await Object.values(error)[1];
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const result = await authService.register(registerData);
-      setError(null); // Clear the error state
+      setError(null); 
       setSuccess('Registration successful!');
       navigate('/login');
       form.reset();
