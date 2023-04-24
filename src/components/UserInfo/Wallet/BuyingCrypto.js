@@ -112,6 +112,9 @@ export default function BuyingCoins({
       setUserFunds(JSON.parse(
         localStorage.getItem("auth")
       )?.portfolio?.wallet[0]?.fundsInAccount)
+      setUserCoins(JSON.parse(
+        localStorage.getItem("auth")
+      )?.portfolio?.wallet[0]?.buyCoins)
       // Reset the select form
       document.querySelector("select[name='currency']").selectedIndex = 0;
     } else {
