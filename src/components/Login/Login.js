@@ -22,13 +22,13 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (error) {
-      toast.error(error);
+    if (!email || !password) {
+      toast.error('Please fill in both email and password fields.');
+    }else{
+      await onLoginSubmit({ email, password });
+      
     }
-    if (success) {
-      toast.success(success);
-    }
-    await onLoginSubmit({ email, password });
+   
   };
 
   return (

@@ -1,70 +1,39 @@
-// header {
-//   position: relative;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   padding: 20px 100px;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   z-index: 99;
-//   background-color: var(--bgSecondary) ;
+/* Removed the commented header styles for brevity */
 
-// }
+.navigation-item {
+  position: relative;
+  font-size: 1.1em;
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 40px;
+}
 
-// .logo {
-//   font-size: 2em;
-//   color: var(--text-primary);
-//   user-select: none;
-// }
+.navigation-item a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  left: 0;
+  bottom: -2px;
+  background-color: var(--text-primary);
+  color: var(--text-primary);
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .5s;
+}
 
-// .navigation-item {
-//   position: relative;
-//   font-size: 1.1em;
-//   color: var(--text-primary);
-//   text-decoration: none;
-//   font-weight: 500;
-//   margin-left: 40px;
-// }
+.navigation-item a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
 
-// .navigation-item a::after {
-//   content: '';
-//   position: absolute;
-//   width: 100%;
-//   height: 3px;
-//   left:0;
-//   bottom: -2px;
-//   background-color: var(--text-primary) ;
-//   color: var(--text-primary);
-//   transform-origin: right;
-//   transform: scaleX(0);
-//   transition: transform .5s;
- 
-// }
-// .navigation-item a:hover::after {
-//   transform: scaleX(1);
-//   transform-origin: left;
+.navigation-item a.active-link::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
 
-// }
-
-// .btnLogin-popup .btnTheme {
-//   width: 130px;
-//   height: 50px;
-//   background: transparent;
-//   border: 2px solid var(--text-primary);
-//   outline: none;
-//   border-radius: 6px;
-//   cursor: pointer;
-//   font-size: 1.1em;
-//   color: var(--text-primary);
-//   font-weight: 500;
-//   transition: .5s;
-// }
-
-// .btnLogin-popup .btnTheme:hover {
-//   background: var(--bgPrimary);
-//   color: var(--text-primary);
-// }
+/* Removed the commented .btnLogin-popup styles for brevity */
 
 .cryExch-nav-center {
   display: flex;
@@ -72,9 +41,12 @@
   align-items: center;
   gap: 10px;
 }
-.mb-3{
+
+.mb-3 {
   padding-bottom: 1rem;
+  background-color: var(--bgSecondary) !important;
 }
+
 .cryExch-navDropdownItem {
   display: inline-block !important;
   width: 100% !important;
@@ -82,4 +54,93 @@
   padding: 8px 16px !important;
   font-size: 16px !important;
   white-space: nowrap !important;
+}
+
+.website-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.navigation-item {
+  font-size: 1.1rem;
+  margin-left: 20px;
+
+  a {
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  &:hover {
+    a {
+      color: var(--bgSecondary);
+      text-decoration: none;
+    }
+  }
+}
+
+.cryExch-nav-center {
+  align-items: center;
+}
+
+.btnTheme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  margin-left: 20px;
+
+  &:hover {
+    color: var(--bgSecondary);
+  }
+}
+
+.cryExch-navDropdownItem {
+  color: var(--text-primary);
+
+  &:hover {
+    background-color: var(--bgSecondary);
+    color: var(--text-primary);
+  }
+}
+
+.active-link {
+  color: var(--bgSecondary) !important;
+  font-weight: bold;
+}
+
+.active-link:hover {
+  text-decoration: none;
+}
+
+.btnLogin-popup {
+  background-color: var(--bgSecondary);
+  border-radius: 4px;
+
+  a {
+    color: var(--text-primary);
+  }
+
+  &:hover {
+    a {
+      color: var(--text-primary);
+    }
+  }
+}
+
+@media (max-width: 696px) {
+  .navigation-item {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  .btnTheme {
+
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
 }

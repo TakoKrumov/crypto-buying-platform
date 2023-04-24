@@ -60,13 +60,31 @@ body {
   }
   
   .light-theme {
+    --bgPrimary: rgb(228, 228, 228);
+    
+    --bgSecondary: #0071bd;
     --text-primary: #000 !important;
-    --bgPrimary: #fff !important;
-    --bgSecondary: #F9F9F9 !important;
+     --border: #d9d9d9 !important;  
+    /* --text-primary: #000 !important;
+    --bgPrimary: #efeded !important;
+    --bgSecondary: #1890ff !important;
     --pink: #0071bd !important;
     --light-blue: #e6f7ff !important;
-    --border: #d9d9d9 !important;
+    --border: #d9d9d9 !important; */
 
+  }
+
+  .dark-theme {
+    --text-primary: #fff !important;
+    --bgPrimary: #3f3f3f !important;
+    --bgSecondary: #070707 !important;
+    --pink: #0071bd !important;
+    --light-blue: #686a6a !important;
+    --border: #d9d9d9 !important;
+  }
+
+  .cardAntd{
+    background: var(--light-blue) !important;
   }
 
   .routes{
@@ -78,15 +96,12 @@ body {
     display: flex; */
   }
   
-  
-  .dark-theme {
-    --text-primary: #fff !important;
-    --bgPrimary: #121212 !important;
-    --bgSecondary: #1d1d1d !important;
-    --pink: #0071bd !important;
-    --light-blue: #e6f7ff !important;
-    --border: #d9d9d9 !important;
+  .website-name{
+    color: var(--text-primary);
+    user-select: none;
   }
+  
+ 
 
 * {
     margin: 0;
@@ -195,7 +210,6 @@ a:hover{
         position:fixed;
         width: 100%;
         z-index: 100;
-        background-color: var(--bgSecondary);
     }
   
     .menu-control-container{
@@ -208,10 +222,14 @@ a:hover{
     }
     .home-title{
         font-size: 1.4rem !important;
+        color: var(--text-primary) !important;
     }
     .show-more{
         font-size: 1.3rem !important;
     }
+}
+.home-heading-container .home-title{
+    color: var(--text-primary) !important;
 }
 
 .coin-detail-container{
@@ -231,7 +249,7 @@ a:hover{
 
 .coin-heading-container .coin-name{
     font-weight: 900;
-    color: var(--pink);
+    color: var(--text-primary) !important;
 }
 
 .coin-heading-container p{
@@ -293,24 +311,31 @@ a:hover{
     gap: 40px;
     margin-top: 40px;
     padding-top: 20px;
+    color: var(--text-primary) !important;
 }
 
 .coin-desc-link h2{
     font-weight: 700;
-    color: var(--pink);
+    color: var(--text-primary) !important;
+
 }
 
 .coin-desc-link p{
     font-size: 1rem;
     opacity: 0.9;
+    color: var(--text-primary) !important;
+
 }
 
 .coin-desc-link a{
     color: var(--pink);
+
 }
 
 .coin-desc-link h3{
     font-weight: 700;
+    color: var(--text-primary) !important;
+
 }
 
 .coin-desc{
@@ -327,6 +352,7 @@ a:hover{
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--border);
+    color: var(--text-primary) !important;
     padding: 20px;
 }
 
@@ -371,12 +397,16 @@ a:hover{
         margin-top: 20px;
     }
 }
+.heading{
+    background-color: var(--bgPrimary) !important;
+    color: var(--text-primary) !important;
+}
 
 .select-news{
     width: 180px;
 }
 .news-card{
-    min-height: 300px !important;
+    min-height: 350px !important;
 }
 .news-image-container{
     display: flex !important;
@@ -384,14 +414,17 @@ a:hover{
 }
 .news-title{
     width: 70%;
+    color: var(--text-primary)!important;
+
 }
 
 .news-image-container .img{
     width:100px;
     height:100px;
+    
 }
 .news-card p{
-    color: var(--pink);
+    color: var(--text-primary);
     margin: 10px 0px !important;
 }
 .provider-container{
@@ -399,7 +432,11 @@ a:hover{
     justify-content: space-between;
 }
 .provider-name{
+    color: var(--text-primary);
     margin-left: 10px;
+}
+.lastSpan{
+    color: var(--text-primary);
 }
 
 .chart-header{
@@ -459,7 +496,7 @@ a:hover{
 }
 
 .footer {
-    background-color: var(--bgPrimary);
+    background-color: var(--text-primary);
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -468,8 +505,8 @@ a:hover{
 
 
 .buy-button {
-    background-color: #1890ff;
-    border-color: #1890ff;
+    background-color: var(--bgSecondary);
+    border-color: #fff;
     color: #fff;
     font-weight: bold;
     margin-top: 1rem;

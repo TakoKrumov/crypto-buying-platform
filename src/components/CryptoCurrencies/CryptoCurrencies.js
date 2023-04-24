@@ -33,7 +33,6 @@ const CryptoCurrencies = ({ simplified }) => {
 
     ccStreamer.onmessage = function onStreamMessage(event) {
       var message = event.data;
-      console.log(message);
       const parsedMessage = JSON.parse(message);
       if (parsedMessage.TYPE === "2") {
         const symbol = parsedMessage.FROMSYMBOL;
@@ -71,9 +70,9 @@ const CryptoCurrencies = ({ simplified }) => {
         {cryptos?.map((currency) => (
           <Col xs={24} sm={12} lg={6} className='crypto-card' key={currency.uuid}>
             <Link to={`/coins/${currency.uuid}`}>
-              <Card
+              <Card className='cardAntd'
                 title={
-                  <Link to={`/coins/${currency.uuid}`}>
+                   <Link to={`/coins/${currency.uuid}`} >
                     {`${currency.rank}. ${currency.name}`}
                   </Link>
                 }
