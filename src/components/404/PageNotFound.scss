@@ -43,13 +43,13 @@
   }
 }
 
-h1 {
+.notFoundH1 {
   font-size: 3rem;
   color: #fff;
   margin: 20px 0;
 }
 
-p {
+.notFound {
   font-size: 1.2rem;
   color: #ccc;
 }
@@ -100,4 +100,20 @@ p {
 
 .ufo:hover {
   filter: brightness(1.2);
+}
+
+
+.bubble {
+  position: absolute;
+  display: none;
+  width: 150px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  color: #000;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+  left: calc(50% - 75px);
+  bottom: 150px;
 }
