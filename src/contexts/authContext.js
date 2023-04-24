@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const onLoginSubmit = async (data) => {
-    const { email, password, rememberMe } = data;
+    const { email, password } = data;
     try {
       const result = await authService.login({ email, password });
       setAuth(result);
@@ -34,26 +34,30 @@ export const AuthProvider = ({ children }) => {
   };
 
   const onRegisterSubmit = async (data) => {
-    const form = document.getElementById('registerForm')
+    const form = document.getElementById('registerForm');
     const { confirmPassword, ...registerData } = data;
-
+  
     if (!confirmPassword) {
       return setError('Repeated password is required!');
     }
-
+  
     if (confirmPassword !== registerData.password) {
       return setError('Password not match!');
     }
-
+  
     try {
       const result = await authService.register(registerData);
-      setError(null); 
+      setError(null);
       setSuccess('Registration successful!');
       navigate('/login');
       form.reset();
     } catch (error) {
-      const result = await Object.values(error)[1];
-      setError(result);
+      if (error.message) {
+        toast.error('There is already an account with this username.');
+      } else {
+        const result = await Object.values(error)[1];
+        setError(result);
+      }
     }
   };
 
@@ -61,7 +65,6 @@ export const AuthProvider = ({ children }) => {
     await authService.logout();
     localStorage.removeItem('auth');
     setAuth({});
-    toast.success("You have been logged out");
     navigate('/login');
   };
 

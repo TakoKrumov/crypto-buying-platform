@@ -14,8 +14,8 @@ const CryptoCurrencies = ({ simplified }) => {
   const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [localPrices, setLocalPrices] = useState({}); // Local state to store prices
-
+  const [localPrices, setLocalPrices] = useState({}); 
+  // exam api key e5430093e36ef4512d9bf1ef1b0fe5432ab02e0591519c06f820f935766d8b85
   const apiKey = '946edf48f7cf6bb17cb39beadf4f04fd0b73e22b4b7061ca7c14eb33b47de779';
   const ccStreamer = new WebSocket(`wss://streamer.cryptocompare.com/v2?api_key=${apiKey}`);
   const navigate = useNavigate();

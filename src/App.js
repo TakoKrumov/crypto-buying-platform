@@ -1,4 +1,4 @@
-import { Routes, Route,useLocation,useRoutes } from "react-router-dom";
+import { Routes, Route, useLocation, useRoutes } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import { Layout } from "antd";
 import Login from "./components/Login/Login";
@@ -62,25 +62,27 @@ function App() {
       <div className="wholeApp">
         <AuthProvider>
           <div className={theme}>
-           <Navigation />
-            <Layout>
-              <div className="routes">
-                <Routes>
-                  <Route path="/" element={<Homepage />} />
+            <Navigation />
+            <div className="main-content">
+              <Layout>
+                <div className="routes">
+                  <Routes>
+                    <Route path="/" element={<Homepage />} />
 
-                  <Route path="/coins" element={<CryptoCurrencies />} />
-                  <Route path="/coins/:coinId" element={<CryptoDetails />} />
-                  <Route path={"/news"} element={<News />}></Route>
-                  <Route path="/userInfo" element={<PrivateRoutes />}>
-                    <Route path="wallet" element={<Wallet />} />
-                    <Route path="planing" element={<Planing />} />
-                    <Route path="history" element={<History />} />
-                  </Route>
-                  {AuthRoutes()}
-                  <Route path={"*"} element={<PageNotFound/>}></Route>
-                </Routes>
-              </div>
-            </Layout>
+                    <Route path="/coins" element={<CryptoCurrencies />} />
+                    <Route path="/coins/:coinId" element={<CryptoDetails />} />
+                    <Route path={"/news"} element={<News />}></Route>
+                    <Route path="/userInfo" element={<PrivateRoutes />}>
+                      <Route path="wallet" element={<Wallet />} />
+                      <Route path="planing" element={<Planing />} />
+                      <Route path="history" element={<History />} />
+                    </Route>
+                    {AuthRoutes()}
+                    <Route path={"*"} element={<PageNotFound />}></Route>
+                  </Routes>
+                </div>
+              </Layout>
+            </div>
           </div>
           <Footer />
         </AuthProvider>
