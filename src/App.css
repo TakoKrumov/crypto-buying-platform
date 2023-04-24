@@ -73,9 +73,9 @@ body {
     color: var(--text-primary);
     background-color: var(--bgPrimary);
     overflow: hidden;
-    justify-content: center;
+    /* justify-content: center;
     align-items: center;
-    display: flex;
+    display: flex; */
   }
   
   

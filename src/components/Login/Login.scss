@@ -81,7 +81,11 @@ h1 {
   margin-bottom: 350px;
 
 }
-
+.form-container-Milen{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .wrapper .form-box {
   width: 100%;
   padding: 40px;
@@ -91,7 +95,10 @@ h1 {
   font-size: 2em;
   color: var(--text-primary);
   text-align: center;
+  
 }
+
+
 
 .input-box {
   position: relative;
@@ -166,14 +173,13 @@ h1 {
 
 .login-register{
   font-size: 0.9em;
-  color:var(--text-primary);
+  color:var(blue);
   text-align: center;
   font-weight: 500;
   margin: 25px 0 10px;
 }
 .login-register .register-link {
   color: var(--text-primary);
-  text-decoration: none;
   font-weight: 600;
 }
 
@@ -208,3 +214,46 @@ h1 {
   background: var(--bgSecondary);
   font-weight: 500;
 }
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
+.modal-close:hover,
+.modal-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+

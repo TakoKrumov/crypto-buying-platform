@@ -35,3 +35,6 @@
   top: -3px;
   
 }
+.search-crypto{
+  z-index: 10000;
+}
