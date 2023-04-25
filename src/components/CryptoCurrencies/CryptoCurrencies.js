@@ -16,8 +16,6 @@ const CryptoCurrencies = ({ simplified }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [localPrices, setLocalPrices] = useState({}); 
 
-
-  // exam api key e5430093e36ef4512d9bf1ef1b0fe5432ab02e0591519c06f820f935766d8b85
   const apiKey = '82fd29df3a768b161f1b4758efe984910d437f647dbd9832b83649a53074015d';
   const navigate = useNavigate();
 

@@ -130,7 +130,7 @@ const Navigation = () => {
                   </>
                 )}
                 <NavDropdown
-                  className={`navigation-item ${activeItem === 'portfolio' ? 'active-link' : ''}`}
+                  className={`navigation-item-dropdown ${activeItem === 'portfolio' ? 'active-link' : ''}`}
                   onClick={() => setActiveItem('portfolio')}
                   title="Portfolio"
                   id={`offcanvasNavbarDropdown-expand-${screenSize}`}
