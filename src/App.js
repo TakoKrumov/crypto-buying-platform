@@ -68,7 +68,6 @@ function App() {
                 <div className="routes">
                   <Routes>
                     <Route path="/" element={<Homepage />} />
-
                     <Route path="/coins" element={<CryptoCurrencies />} />
                     <Route path="/coins/:coinId" element={<CryptoDetails />} />
                     <Route path={"/news"} element={<News />}></Route>
