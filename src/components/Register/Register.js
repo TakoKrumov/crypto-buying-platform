@@ -16,7 +16,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [avatar, setAvatarUrl] = useState("https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AOvVaw1tdkjAeu3Yr58h-yqgHTdE&ust=1682524955704000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJik-IO0xf4CFQAAAAAdAAAAABAE");
 
 
   const portfolio = {
@@ -25,7 +24,6 @@ const Register = () => {
     ],
     history: [{}],
     wallet: [{ fundsInAccount: Math.floor(Math.random() * 100000), buyCoins: [], sellCoins: [] }],
-    avatar: [{ avatar: avatar }]
 
   };
 
