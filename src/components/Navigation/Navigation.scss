@@ -150,8 +150,8 @@
   &:hover {
     a {
       text-decoration: none;
-      background-color: var(--bgPrimary);
-      color: var(--text-primary) !important;
+      background-color: var(--bgSecondary);
+      color: white !important;
 
     }
   }
@@ -160,4 +160,12 @@
 .dropdown-menu[data-bs-popper] {
   margin-top: 20px;
   padding: 0;
+}
+
+.offcanvas-body ,.offcanvas-header {
+  background-color: var(--bgSecondary);
+}
+
+.navbar-toggler{
+  background: var(--dropdown-color)!important;
 }

@@ -48,6 +48,7 @@
 
 :root {
     --text-primary: #000;
+    --dropdown-color: #0071bd;
     --bgPrimary: #fff;
     --bgSecondary: #F9F9F9;
     --pink: #0071bd;
@@ -68,9 +69,12 @@ body {
     --bgSecondary: #0071bd;
     --border: #d9d9d9 !important;
     --color: black;
+    --dropdown-color: #0071bd;
+
 }
 
 .dark-theme {
+    --dropdown-color: white;
     --text-primary: #fff !important;
     --bgPrimary: #3f3f3f !important;
     --bgSecondary: #070707 !important;
