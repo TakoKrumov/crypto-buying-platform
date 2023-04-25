@@ -26,7 +26,7 @@ const News = ({ simplified }) => {
           <Select showSearch className='select-news' placeholder="Select Crypto" optionFilterProp='children' onChange={(value) => setNewsCategory(value)}
             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLocaleLowerCase()) >= 0}>
             <Option value="Cryptocurrency">Cryptocurrency</Option>
-            {data?.data.coins.map((coin) => <Option value={coin.name}>{coin.name}</Option>)}
+            {data?.data.coins.map((coin) => <Option value={coin.name} key={`${coin.name}`}>{coin.name}</Option>)}
           </Select>
         </Col>
       )

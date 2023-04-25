@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/authContext";
-import { Navigate } from "react-router-dom";
 import { debounce } from 'lodash';
 
 import { toast } from 'react-toastify';
