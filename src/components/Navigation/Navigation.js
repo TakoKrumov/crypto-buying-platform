@@ -30,6 +30,8 @@ function useWindowSize() {
 const Navigation = () => {
   const { theme, toggleTheme } = useTheme();
   const { isAuthenticated, onLogout } = useContext(AuthContext);
+  const [activeItem, setActiveItem] = useState('');
+
 
   const renderThemeIcon = () => {
     return theme === 'light-theme' ? (
@@ -81,14 +83,23 @@ const Navigation = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3 cryExch-nav-center">
-                <Nav.Item className="navigation-item">
-                  <NavLink to="/" activeClassName="active-link">Home</NavLink>
+                <Nav.Item
+                  className={`navigation-item ${activeItem === 'home' ? 'active-link' : ''}`}
+                  onClick={() => setActiveItem('home')}
+                >
+                  <NavLink to="/">Home</NavLink>
                 </Nav.Item>
-                <Nav.Item className="navigation-item">
-                  <NavLink to="/news" activeClassName="active-link">News</NavLink>
+                <Nav.Item
+                  className={`navigation-item ${activeItem === 'news' ? 'active-link' : ''}`}
+                  onClick={() => setActiveItem('news')}
+                >
+                  <NavLink to="/news">News</NavLink>
                 </Nav.Item>
-                <Nav.Item className="navigation-item">
-                  <NavLink to="/coins" activeClassName="active-link">Coins</NavLink>
+                <Nav.Item
+                  className={`navigation-item ${activeItem === 'coins' ? 'active-link' : ''}`}
+                  onClick={() => setActiveItem('coins')}
+                >
+                  <NavLink to="/coins">Coins</NavLink>
                 </Nav.Item>
 
                 {isAuthenticated ? (
@@ -104,16 +115,23 @@ const Navigation = () => {
                   </Nav.Item>
                 ) : (
                   <>
-                    <Nav.Item className="btnLogin-popup navigation-item">
-                      <NavLink to="/login" activeClassName="active-link">Login</NavLink>
+                    <Nav.Item
+                      className={`navigation-item ${activeItem === 'login' ? 'active-link' : ''}`}
+                      onClick={() => setActiveItem('login')}
+                    >
+                      <NavLink to="/login">Login</NavLink>
                     </Nav.Item>
-                    <Nav.Item className="navigation-item">
-                      <NavLink to="/register" activeClassName="active-link">Register</NavLink>
+                    <Nav.Item
+                      className={`navigation-item ${activeItem === 'register' ? 'active-link' : ''}`}
+                      onClick={() => setActiveItem('register')}
+                    >
+                      <NavLink to="/register">Register</NavLink>
                     </Nav.Item>
                   </>
                 )}
-                <NavDropdown className="navigation-item"
-
+                <NavDropdown
+                  className={`navigation-item ${activeItem === 'portfolio' ? 'active-link' : ''}`}
+                  onClick={() => setActiveItem('portfolio')}
                   title="Portfolio"
                   id={`offcanvasNavbarDropdown-expand-${screenSize}`}
                 >

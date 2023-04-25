@@ -513,3 +513,7 @@ a:hover{
   .main-content {
     padding-bottom: 70px;
   }
+
+  .statistic-title{
+    color: var(--text-primary)!important;
+  }
