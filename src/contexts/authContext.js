@@ -56,8 +56,6 @@ export const AuthProvider = ({ children }) => {
         toast.error('There is already an account with this username.');
       } else {
         const result = await Object.values(error)[1];
-        console.log(result);
-        debugger;
         setError(result);
       }
     }
