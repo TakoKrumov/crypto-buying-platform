@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {addUserToLocalStorage} from '../../hooks/useLocalStorage'
 import { AuthContext } from "../../contexts/authContext";
 import "./Register.scss";
 
@@ -16,14 +16,17 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [avatar, setAvatarUrl] = useState("https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AOvVaw1tdkjAeu3Yr58h-yqgHTdE&ust=1682524955704000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJik-IO0xf4CFQAAAAAdAAAAABAE");
 
 
   const portfolio = {
     userInfo: [
-      { name: username, userEmail: email, userPassword: password, userAvatar: "" },
+      { name: username, userEmail: email, userPassword: password },
     ],
     history: [{}],
     wallet: [{ fundsInAccount: Math.floor(Math.random() * 100000), buyCoins: [], sellCoins: [] }],
+    avatar: [{ avatar: avatar }]
+
   };
 
   const checkPassword = (password) => {

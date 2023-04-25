@@ -15,7 +15,7 @@ const CryptoCurrencies = ({ simplified }) => {
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [localPrices, setLocalPrices] = useState({});
-
+  //EXAM KEY !!!!!!!!!!!!!!!!!!!!!!!!!!  !!!!!!!!!dee01b57781352720662926113d82676d2d819ce08adf04096fa29fec005f5dd
   const apiKey = '82fd29df3a768b161f1b4758efe984910d437f647dbd9832b83649a53074015d';
   const navigate = useNavigate();
 
@@ -40,7 +40,6 @@ const CryptoCurrencies = ({ simplified }) => {
         setLocalPrices(prevPrices => ({ ...prevPrices, [symbol]: price }));
       }
     };
-    console.log("pesa");
 
     return () => {
       ccStreamer.close();
