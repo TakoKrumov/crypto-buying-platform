@@ -1,6 +1,19 @@
 const History = () => {
 
-  return <div>This is History!</div>
+  return <>
+  <h3>History</h3>
+  <table>
+    <th>
+      <tr>
+        
+        
+      </tr>      
+    </th>
+    <tbody>
+      
+    </tbody>
+  </table>
+  </>
 
 }
 

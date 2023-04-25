@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Wallet.scss";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import img from "./fi-cnsuxl-question-mark.svg";
 import { useGetCryptosQuery } from "../../../services/cryptoApi";
 
@@ -65,7 +67,12 @@ export default function ExchangeCoins({
 
   const handleExchangeCoins = () => {
     if (!selectedCoin || !targetCoin) {
-      alert("Please select both coins for the exchange.");
+      toast.error("Please select both coins for the exchange.");
+      return;
+    }
+  
+    if (amountForExchange === 0 || amountSecond === 0) {
+      toast.error("The exchange amount must be greater than 0.");
       return;
     }
 
@@ -126,6 +133,7 @@ export default function ExchangeCoins({
   return (
     <>
       <h3>Exchange Coins</h3>
+      <ToastContainer />
       <div className="wallet-exchangingCrypto">
         <div className="crpExh-container">
           <label htmlFor="selectedCoin">From:</label>
@@ -196,8 +204,9 @@ export default function ExchangeCoins({
         />
         <button onClick={handleExchangeCoins} className="crpExh-btn">
           Exchange
-        </button>
+        </button>   
       </div>
+      
     </>
   );
 }

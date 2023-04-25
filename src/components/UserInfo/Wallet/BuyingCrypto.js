@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import "./Wallet.scss";
 import img from "./fi-cnsuxl-question-mark.svg";
 import { useGetCryptosQuery } from "../../../services/cryptoApi";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function BuyingCoins({
   account,
@@ -36,6 +38,17 @@ export default function BuyingCoins({
     setSymbol(selectedCoin);
     console.log(event.target.options[selectedIndex]);
     setIcon(event.target.options[selectedIndex].dataset.icon);
+  
+    // Calculate the minimum coin amount required for a $0.01 purchase
+    let minAmountForOneCent = 0.01 / selectedCoinPrice;
+  
+    // If the coin price is greater than or equal to $0.01, set the minimum amount to 0.01
+    if (selectedCoinPrice >= 0.01) {
+      minAmountForOneCent = 0.01;
+    }
+  
+    // Update the amount state to the minimum coin amount
+    setAmount(minAmountForOneCent);
   };
 
   // const handleAmountChange = (event) => {
@@ -60,7 +73,12 @@ export default function BuyingCoins({
   const handleBuyCoins = () => {
     // Check if the user selected a coin symbol
     if (symbol === "") {
-      alert("Please select a coin to buy.");
+      toast.error("Please select a coin to buy.");
+      return;
+    }
+
+    if (amount < 0.01) {
+      toast.error("Minimum amount required to buy is 0.01.");
       return;
     }
 
@@ -118,7 +136,7 @@ export default function BuyingCoins({
       // Reset the select form
       document.querySelector("select[name='currency']").selectedIndex = 0;
     } else {
-      alert("You don't have enough funds to buy the selected coins.");
+      toast.error("You don't have enough funds to buy the selected coins.");
     }
   };
 
@@ -126,6 +144,7 @@ export default function BuyingCoins({
   return (
     <>
       <h3>Buying coins</h3>
+      <ToastContainer />
       <div className="wallet-buyingCrypto">
         <div className="crpExh-container">
           <label htmlFor="currency">Currency:</label>
@@ -161,7 +180,7 @@ export default function BuyingCoins({
           <input
             type="number"
             step={0.01}
-            min={0}
+            min={!!amount ? (parseFloat(amount)) : 0}
             max={maxAmount} // Use maxAmount as the maximum value for the input field
             name="amount"
             value={!!amount ? parseFloat(amount) : ""}

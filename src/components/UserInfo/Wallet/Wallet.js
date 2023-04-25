@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "./Wallet.scss";
 import BuyingCoins from "./BuyingCrypto";
 import AddingFunds from "./AddingFunds";
@@ -15,18 +15,15 @@ const Wallet = () => {
     account?.portfolio?.wallet[0]?.fundsInAccount
   );
 
-  useEffect(() => {
-    const temporal = userFunds;
-    if (temporal !== userFunds) {
-      setUserFunds(userFunds);
-    }
-  }, [userFunds]);
-
   const [userCoins, setUserCoins] = useState(
     JSON.parse(
       localStorage.getItem("auth")
     )?.portfolio?.wallet[0]?.buyCoins.map((element) => element)
   );
+
+  const userCoinsMapped = useMemo(() => {
+    return userCoins.map((element) => element);
+  }, [userCoins]);
 
   const [userCoinsWithIcons, setUserCoinsWithIcons] = useState([]);
   const count = 100;
@@ -34,7 +31,7 @@ const Wallet = () => {
 
   useEffect(() => {
     if (cryptoList?.data) {
-      const currentCoinsWithIcons = userCoins?.map((myCoin) => {
+      const currentCoinsWithIcons = userCoinsMapped?.map((myCoin) => {
         const matchedCoin = cryptoList.data.coins.find(
           (coin) => myCoin.symbol === coin.symbol
         );
@@ -42,7 +39,7 @@ const Wallet = () => {
       });
       setUserCoinsWithIcons(currentCoinsWithIcons);
     }
-  }, [cryptoList, userCoins]);
+  }, [cryptoList, userCoinsMapped]);
 
   const isAuth = !!JSON.parse(localStorage.getItem("auth"))?.email
     ? JSON.parse(localStorage.getItem("auth"))
@@ -76,6 +73,7 @@ const Wallet = () => {
           My Coins:
           {Array.isArray(userCoins) &&
             userCoins?.map((coin, index) => (
+              !!(parseFloat(coin.amount) !== 0.00) ? 
               <span
                 key={index}
                 id={coin.symbol}
@@ -90,6 +88,7 @@ const Wallet = () => {
                   height="25"
                 />
               </span>
+              : null
             ))}
         </div>
       </div>

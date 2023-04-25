@@ -6,6 +6,12 @@
   font-family: Arial, sans-serif;
   overflow: hidden;
 
+  &.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 }
 
 .content-wrapper {
@@ -22,7 +28,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: 400px;
+  
 }
 
 .astronaut {
@@ -32,6 +38,7 @@
   background: url('./astronaut.png.png') no-repeat center;
   background-size: contain;
   animation: float 6s ease-in-out infinite;
+  z-index: 1;
 }
 
 @keyframes float {
