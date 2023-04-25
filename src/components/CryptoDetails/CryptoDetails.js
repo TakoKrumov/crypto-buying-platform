@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
 
-import HtmlReactParser from 'html-react-parser'
 import { useParams } from "react-router-dom";
 import millify from "millify";
 import { Col, Row, Typography, Select,Button } from "antd";

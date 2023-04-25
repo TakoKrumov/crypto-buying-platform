@@ -1,30 +1,33 @@
 import React from 'react';
 import millify from 'millify';
-import {Typography,Row,Col,Statistic} from 'antd';
-import {Link} from 'react-router-dom';
+import { Typography, Row, Col, Statistic } from 'antd';
+import { Link } from 'react-router-dom';
 import { useGetCryptosQuery } from '../../services/cryptoApi';
 import CryptoCurrencies from '../CryptoCurrencies/CryptoCurrencies'
 import News from '../News/News'
+import { useTheme } from '../../contexts/themeContext';
 
-const {Title} = Typography;
+const { Title } = Typography;
 
 
 const Homepage = () => {
+  const { theme } = useTheme();
 
-  const {data ,isFetching } = useGetCryptosQuery(10);
+
+  const { data, isFetching } = useGetCryptosQuery(10);
   const globalStats = data?.data.stats;
 
-  if(isFetching) return "loading...";
+  if (isFetching) return "loading...";
 
   return (
     <div className='homeContainer'>
       <Title level={2} className='heading'>Global Crypto Stats</Title>
-      <Row className='light-theme'>
-        <Col span={12}><Statistic title="Total Cryptocurrencies" className='statistic-title' value={globalStats.total}/></Col>
-        <Col span={12}><Statistic title="Total Exchanges" className='statistic-title' value={millify(globalStats.totalExchanges)}/></Col>
-        <Col span={12}><Statistic title="Total Market Cap" className='statistic-title' value={millify(globalStats.totalMarketCap)}/></Col>
-        <Col span={12}><Statistic title="Total 24h Volume" className='statistic-title' value={millify(globalStats.total24hVolume)}/></Col>
-        <Col span={12}><Statistic title="Total Markets" className='statistic-title' value={millify(globalStats.totalMarkets)}/></Col>
+      <Row className={theme}>
+        <Col span={12}><Statistic className='statistic-title' title="Total Cryptocurrencies" value={globalStats.total} /></Col>
+        <Col span={12}><Statistic className='statistic-title' title="Total Exchanges" value={millify(globalStats.totalExchanges)} /></Col>
+        <Col span={12}><Statistic className='statistic-title' title="Total Market Cap" value={millify(globalStats.totalMarketCap)} /></Col>
+        <Col span={12}><Statistic className='statistic-title' title="Total 24h Volume" value={millify(globalStats.total24hVolume)} /></Col>
+        <Col span={12}><Statistic className='statistic-title' title="Total Markets" value={millify(globalStats.totalMarkets)} /></Col>
       </Row>
       <div className='home-heading-container'>
         <Title level={2} className='home-title'>Top 10 Cryptocurrencies in the world</Title>

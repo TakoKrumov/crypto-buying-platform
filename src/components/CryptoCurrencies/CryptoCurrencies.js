@@ -15,13 +15,15 @@ const CryptoCurrencies = ({ simplified }) => {
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [localPrices, setLocalPrices] = useState({}); 
+
+
   // exam api key e5430093e36ef4512d9bf1ef1b0fe5432ab02e0591519c06f820f935766d8b85
-  const apiKey = '946edf48f7cf6bb17cb39beadf4f04fd0b73e22b4b7061ca7c14eb33b47de779';
-  const ccStreamer = new WebSocket(`wss://streamer.cryptocompare.com/v2?api_key=${apiKey}`);
+  const apiKey = '82fd29df3a768b161f1b4758efe984910d437f647dbd9832b83649a53074015d';
   const navigate = useNavigate();
 
 
   useEffect(() => {
+    const ccStreamer = new WebSocket(`wss://streamer.cryptocompare.com/v2?api_key=${apiKey}`);
     ccStreamer.onopen = function onStreamOpen() {
       let subs = cryptoList?.data.coins.slice(0, 1).map((coin) => `2~Coinbase~${coin.symbol}~USD`);
       var subRequest = {
@@ -40,6 +42,8 @@ const CryptoCurrencies = ({ simplified }) => {
         setLocalPrices(prevPrices => ({ ...prevPrices, [symbol]: price }));
       }
     };
+    console.log("pesa");
+
     return () => {
       ccStreamer.close();
     };
