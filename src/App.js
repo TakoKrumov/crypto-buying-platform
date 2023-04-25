@@ -71,7 +71,7 @@ function App() {
                     <Route path="/coins" element={<CryptoCurrencies />} />
                     <Route path="/coins/:coinId" element={<CryptoDetails />} />
                     <Route path={"/news"} element={<News />}></Route>
-                    <Route path="/userInfo" element={<PrivateRoutes />}>
+                    <Route path="/userInfo"element={<PrivateRoutes />} >
                       <Route path="wallet" element={<Wallet />} />
                       <Route path="planing" element={<Planing />} />
                       <Route path="history" element={<History />} />
