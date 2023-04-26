@@ -36,7 +36,7 @@ export default function BuyingCoins({
     const selectedCoin = event.target.options[selectedIndex].id;
     setSelectedPrice(selectedCoinPrice);
     setSymbol(selectedCoin);
-    console.log(event.target.options[selectedIndex]);
+    // console.log(event.target.options[selectedIndex]);
     setIcon(event.target.options[selectedIndex].dataset.icon);
   
     // Calculate the minimum coin amount required for a $0.01 purchase
@@ -180,15 +180,15 @@ export default function BuyingCoins({
           <input
             type="number"
             step={0.01}
-            min={!!amount ? (parseFloat(amount)) : 0}
+            min={!!(((amount /selectedPrice.toFixed(2)) === 0.01)) ? 0.01 : amount /selectedPrice.toFixed(2) }
             max={maxAmount} // Use maxAmount as the maximum value for the input field
             name="amount"
-            value={!!amount ? parseFloat(amount) : ""}
+            value={!!amount ? parseFloat(amount).toFixed(2) : 0}
             onChange={handleAmountChange}
           />
         </div>
         <span type="radio" name="" id="crpExh-total" /> Total: $
-        {(amount && amount * selectedPrice).toFixed(2)}
+        {((amount && amount * selectedPrice).toFixed(2))}
         <button onClick={handleBuyCoins} className="crpExh-btn">
           Buy
         </button>

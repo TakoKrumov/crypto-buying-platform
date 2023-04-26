@@ -332,7 +332,7 @@
         },
         post: (context, tokens, query, body) => {
             tokens = [context.params.collection, ...tokens];
-            console.log('Request body:\n', body);
+            // console.log('Request body:\n', body);
 
             // TODO handle collisions, replacement
             let responseData = data;
@@ -349,7 +349,7 @@
         },
         put: (context, tokens, query, body) => {
             tokens = [context.params.collection, ...tokens];
-            console.log('Request body:\n', body);
+            // console.log('Request body:\n', body);
 
             let responseData = data;
             for (let token of tokens.slice(0, -1)) {
@@ -364,7 +364,7 @@
         },
         patch: (context, tokens, query, body) => {
             tokens = [context.params.collection, ...tokens];
-            console.log('Request body:\n', body);
+            // console.log('Request body:\n', body);
 
             let responseData = data;
             for (let token of tokens) {
@@ -589,7 +589,7 @@
                 props.map(prop => {
                     const [propName, relationTokens] = prop.split('=');
                     const [idSource, collection] = relationTokens.split(':');
-                    console.log(`Loading related records from "${collection}" into "${propName}", joined on "_id"="${idSource}"`);
+                    // console.log(`Loading related records from "${collection}" into "${propName}", joined on "_id"="${idSource}"`);
                     const storageSource = collection == 'users' ? context.protectedStorage : context.storage;
                     responseData = Array.isArray(responseData) ? responseData.map(transform) : transform(responseData);
 
@@ -618,7 +618,7 @@
     }
 
     function post(context, tokens, query, body) {
-        console.log('Request body:\n', body);
+        // console.log('Request body:\n', body);
 
         validateRequest(context, tokens);
         if (tokens.length > 0) {
@@ -639,7 +639,7 @@
     }
 
     function put(context, tokens, query, body) {
-        console.log('Request body:\n', body);
+        // console.log('Request body:\n', body);
 
         validateRequest(context, tokens);
         if (tokens.length != 1) {
@@ -667,7 +667,7 @@
     }
 
     function patch(context, tokens, query, body) {
-        console.log('Request body:\n', body);
+        // console.log('Request body:\n', body);
 
         validateRequest(context, tokens);
         if (tokens.length != 1) {
@@ -737,7 +737,7 @@
     const img = Buffer.from(imgdata, 'base64');
 
     var favicon = (method, tokens, query, body) => {
-        console.log('serving favicon...');
+        // console.log('serving favicon...');
         const headers = {
             'Content-Type': 'image/png',
             'Content-Length': img.length
@@ -795,7 +795,7 @@
 
     function onRequest(context, tokens, query, body) {
         Object.entries(body).forEach(([k, v]) => {
-            console.log(`${k} ${v ? 'enabled' : 'disabled'}`);
+            // console.log(`${k} ${v ? 'enabled' : 'disabled'}`);
             context.util[k] = v;
         });
         return '';
@@ -1080,7 +1080,7 @@
                 if (session !== undefined) {
                     const userData = context.protectedStorage.get('users', session.userId);
                     if (userData !== undefined) {
-                        console.log('Authorized as ' + userData[identity]);
+                        // console.log('Authorized as ' + userData[identity]);
                         user = userData;
                     }
                 }
@@ -1400,8 +1400,8 @@
 
     const port = 3030;
     server.listen(port);
-    console.log(`Server started on port ${port}. You can make requests to http://localhost:${port}/`);
-    console.log(`Admin panel located at http://localhost:${port}/admin`);
+    // console.log(`Server started on port ${port}. You can make requests to http://localhost:${port}/`);
+    // console.log(`Admin panel located at http://localhost:${port}/admin`);
 
     var softuniPracticeServer = {
 

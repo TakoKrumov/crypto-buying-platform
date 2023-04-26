@@ -63,7 +63,7 @@ const Wallet = () => {
   const onCoinsChange = (newCoins) => {
     setUserCoins(newCoins);
   };
-
+  
   return (
     <div className="userPage">
       <div className="walletInfo">

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import "./Wallet.scss";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { auto } from "@popperjs/core";
 
-const AddingFunds = () => {
+
+const AddingFunds = ({userFunds, setUserFunds}) => {
   // const [funds, setFunds] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expiration, setExpiration] = useState("");
   const [cvv, setCvv] = useState("");
   const [amount, setAmount] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date());
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth();
+const currentYear = currentDate.getFullYear();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,13 +23,13 @@ const AddingFunds = () => {
     if (validate()) {
       // Add your logic to handle the submission (e.g., call an API, update the state, etc.)
       const auth = JSON.parse(localStorage.getItem("auth"));
-      auth.portfolio.wallet[0].fundsInAccount = (
+      
+      setUserFunds(auth.portfolio.wallet[0].fundsInAccount = (
         parseFloat(auth.portfolio.wallet[0].fundsInAccount) + parseFloat(amount)
-      ).toString();
-      localStorage.setItem("auth", JSON.stringify(auth));
-      console.log("Form submitted");
+      ).toString())
+      // console.log("Form submitted");
     } else {
-      console.log("Form validation failed");
+      // console.log("Form validation failed");
     }
   };
 
@@ -36,15 +44,6 @@ const AddingFunds = () => {
     return true;
   };
 
-  const handleExpirationChange = (e) => {
-    let value = e.target.value;
-    value = value.replace(/[^0-9]/g, ""); // Remove any non-numeric characters
-    if (value.length >= 3) {
-      value = value.slice(0, 2) + "/" + value.slice(2, 4); // Add the '/' separator
-    }
-    setExpiration(value);
-  };
-
   return (
     <>
       <h1>Adding Funds</h1>
@@ -57,26 +56,30 @@ const AddingFunds = () => {
               type="text"
               id="cardNumber"
               value={cardNumber}
+              maxLength={16}
               onChange={(e) => setCardNumber(e.target.value)}
             />
           </div>
           <div className="crpExh-container">
-            <label htmlFor="expiration">Expiration (MM/YY):</label>
-            <input
-              type="text"
-              id="expiration"
-              placeholder="MM/YY"
-              maxLength="5" // Limit input length to 5 characters (MM/YY)
-              value={expiration}
-              onChange={handleExpirationChange}
-            />
-          </div>
+  <label htmlFor="expiration">Expiration (MM/YY):</label>
+  <DatePicker
+    selected={selectedDate}
+    onChange={(date) => setSelectedDate(date)}
+    dateFormat="MM/yy"
+    showMonthYearPicker
+    showFullMonthYearPicker
+    minDate={new Date(currentYear, currentMonth, 1)}
+    id="expiration"
+    placeholderText="MM/YY"
+  />
+</div>
           <div className="crpExh-container">
             <label htmlFor="cvv">CVV:</label>
             <input
               type="text"
               id="cvv"
               value={cvv}
+              maxLength={3}
               placeholder="xxx"
               onChange={(e) => setCvv(e.target.value)}
             />

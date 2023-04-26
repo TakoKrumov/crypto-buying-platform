@@ -40,7 +40,7 @@ const CryptoCurrencies = ({ simplified }) => {
         setLocalPrices(prevPrices => ({ ...prevPrices, [symbol]: price }));
       }
     };
-    console.log("pesa");
+    // console.log("pesa");
 
     return () => {
       ccStreamer.close();

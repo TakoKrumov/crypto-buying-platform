@@ -30,7 +30,7 @@ export default function ExchangeCoins({
     const selectedIndex = event.target.selectedIndex;
     const selectedSymbol = event.target.options[selectedIndex].id;
     const temporal = userCoins?.find((coin) => coin?.symbol === selectedSymbol);
-    console.log(`temporal`, temporal);
+    // console.log(`temporal`, temporal);
     const selectedCoinData = coinData.find(
       (coin) => coin?.symbol === temporal?.symbol
     );
@@ -89,14 +89,14 @@ export default function ExchangeCoins({
       targetCoinInWallet.amount = (
         parseFloat(targetCoinInWallet.amount) + exchangedAmount
       ).toFixed(2);
-      console.log("targetCoinInWallet", targetCoinInWallet);
+      // console.log("targetCoinInWallet", targetCoinInWallet);
     } else {
       coinsInWallet.push({
         symbol: targetCoin.symbol,
         amount: exchangedAmount.toFixed(2),
       });
     }
-    console.log("targetCoinInWallet", exchangedAmount);
+    // console.log("targetCoinInWallet", exchangedAmount);
     const selectedCoinIndex = coinsInWallet.findIndex(
       (coin) => coin.symbol === selectedCoin?.symbol
     );
