@@ -41,21 +41,6 @@ const Wallet = () => {
     }
   }, [cryptoList, userCoinsMapped]);
 
-  const isAuth = !!JSON.parse(localStorage.getItem("auth"))?.email
-    ? JSON.parse(localStorage.getItem("auth"))
-    : false;
-
-  if (!isAuth) {
-    return (
-      <>
-        <div>
-          GO to <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </div>
-      </>
-    );
-  }
-
   const onFundsChange = (newFunds) => {
     setUserFunds(newFunds);
   };

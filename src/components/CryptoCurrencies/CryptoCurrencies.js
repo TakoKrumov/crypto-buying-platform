@@ -14,8 +14,8 @@ const CryptoCurrencies = ({ simplified }) => {
   const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [localPrices, setLocalPrices] = useState({}); 
-
+  const [localPrices, setLocalPrices] = useState({});
+  //EXAM KEY !!!!!!!!!!!!!!!!!!!!!!!!!!  !!!!!!!!!dee01b57781352720662926113d82676d2d819ce08adf04096fa29fec005f5dd
   const apiKey = '82fd29df3a768b161f1b4758efe984910d437f647dbd9832b83649a53074015d';
   const navigate = useNavigate();
 
@@ -40,7 +40,6 @@ const CryptoCurrencies = ({ simplified }) => {
         setLocalPrices(prevPrices => ({ ...prevPrices, [symbol]: price }));
       }
     };
-    // console.log("pesa");
 
     return () => {
       ccStreamer.close();
@@ -69,12 +68,12 @@ const CryptoCurrencies = ({ simplified }) => {
       )}
       <Row gutter={[32, 32]} className='crypto-card-container'>
         <Outlet />
-        {cryptos?.map((currency) => (
-          <Col xs={24} sm={12} lg={6} className='crypto-card' key={currency.uuid}>
+        {cryptos?.map((currency, i) => (
+          <Col xs={24} sm={12} lg={6} className='crypto-card' key={currency.uuid + i}>
             <Link to={`/coins/${currency.uuid}`}>
               <Card className='cardAntd'
                 title={
-                   <Link to={`/coins/${currency.uuid}`} >
+                  <Link to={`/coins/${currency.uuid}`} >
                     {`${currency.rank}. ${currency.name}`}
                   </Link>
                 }

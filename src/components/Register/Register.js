@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {addUserToLocalStorage} from '../../hooks/useLocalStorage'
 import { AuthContext } from "../../contexts/authContext";
 import "./Register.scss";
 
@@ -20,10 +20,11 @@ const Register = () => {
 
   const portfolio = {
     userInfo: [
-      { name: username, userEmail: email, userPassword: password, userAvatar: "" },
+      { name: username, userEmail: email, userPassword: password },
     ],
     history: [{}],
     wallet: [{ fundsInAccount: Math.floor(Math.random() * 100000), buyCoins: [], sellCoins: [] }],
+
   };
 
   const checkPassword = (password) => {
